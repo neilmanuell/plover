@@ -76,8 +76,7 @@ public class ControllerConfig implements IConfig
         flow
                 .on( KeyboardEvent.KEY_DOWN, KeyboardEvent )
                 .all.onApproval( onlyIfKeyIs( Keyboard.LEFT ) )
-                .execute( DecreaseSlide );
-        //.and.fix();
+                .execute( DecreaseSlide )
 
         flow
                 .on( KeyboardEvent.KEY_UP, KeyboardEvent )
