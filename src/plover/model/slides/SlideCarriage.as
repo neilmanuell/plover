@@ -25,7 +25,7 @@ public class SlideCarriage
         _selectedItem = value;
     }
 
-    private var _selectedIndex:int;
+    private var _selectedIndex:int = -1;
 
     [Bindable]
     public function get selectedIndex():int
