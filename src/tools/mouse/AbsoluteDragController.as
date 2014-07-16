@@ -16,7 +16,7 @@ public class AbsoluteDragController extends DragController
     private function removeDownListeners():void
     {
         client.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.removeEventListener( Event.ENTER_FRAME, onEnterFrame );
+        client.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
 
     override protected function removeAllListeners():void
@@ -28,7 +28,7 @@ public class AbsoluteDragController extends DragController
     override protected function onMouseDown( event:MouseEvent ):void
     {
         client.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.addEventListener( Event.ENTER_FRAME, onEnterFrame );
+        client.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
 
     override protected function onMouseUp( event:MouseEvent ):void
@@ -36,9 +36,9 @@ public class AbsoluteDragController extends DragController
         removeDownListeners();
     }
 
-    override protected function onEnterFrame( event:Event ):void
+    override protected function onMouseMove( event:Event ):void
     {
-
+        trace( client.mouseX  );
         multiplier = client.mouseX / client.width;
 
     }

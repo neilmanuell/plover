@@ -7,7 +7,7 @@ import plover.view.DragControlComboMediator;
 import plover.view.NativeWindowMediator;
 import plover.view.SlideMediator;
 import plover.view.components.DragControlCombo;
-import plover.view.components.Slide;
+import plover.view.components.SlideBase;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
@@ -29,7 +29,7 @@ public class ViewConfig implements IConfig
     public function configure():void
     {
         mediators.map( Button ).toMediator( ButtonMediator );
-        mediators.map( Slide ).toMediator( SlideMediator );
+        mediators.map( SlideBase ).toMediator( SlideMediator );
         mediators.map( DragControlCombo ).toMediator( DragControlComboMediator );
 
         const mainView:ContextView = injector.getInstance( ContextView );

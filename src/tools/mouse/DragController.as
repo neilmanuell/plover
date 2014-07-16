@@ -63,7 +63,7 @@ public class DragController
 
     }
 
-    protected function onEnterFrame( event:Event ):void
+    protected function onMouseMove( event:Event ):void
     {
 
     }

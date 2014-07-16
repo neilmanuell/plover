@@ -4,13 +4,11 @@ import flash.display.BitmapData;
 import flash.filesystem.File;
 
 import tools.loaderservice.data.NULL_BITMAP_DATA;
-import tools.signals.Signal1;
 
 use namespace NULL_BITMAP_DATA;
 
 public class SlideCarriage
 {
-    public const changed:Signal1 = new Signal1( BitmapData );
 
     private const _mappings:Vector.<Mapping> = new <Mapping>[];
 
@@ -28,7 +26,6 @@ public class SlideCarriage
     }
 
     private var _selectedIndex:int;
-    private var _numberOfChildren:int;
 
     [Bindable]
     public function get selectedIndex():int
@@ -43,9 +40,44 @@ public class SlideCarriage
         selectedItem = _mappings[_selectedIndex].bmp;
     }
 
+    private var _numberOfChildren:int;
+
+    [Bindable]
+    public function get numberOfChildren():int
+    {
+        return _numberOfChildren;
+    }
+
+    public function set numberOfChildren( value:int ):void
+    {
+        _numberOfChildren = value;
+    }
+
+    private var _remainder:Number;
+
+    [Bindable]
+    public function get remainder():Number
+    {
+
+        return _remainder;
+    }
+
+    public function set remainder( value:Number ):void
+    {
+        _remainder = value;
+    }
+
     public function set multiplier( value:Number ):void
     {
-        selectedIndex = Math.round( value * _mappings.length - 1 );
+        const f:Number = value * _mappings.length - 1;
+        selectedIndex = int( f );
+        remainder = f - _selectedIndex;
+        // trace( " f = " + f + " i = " + selectedIndex + " r = " + _remainder );
+    }
+
+    public function getItemAt( index:int ):BitmapData
+    {
+        return  _mappings[index].bmp;
     }
 
     public function add( file:File, bmp:BitmapData ):void
@@ -59,19 +91,6 @@ public class SlideCarriage
         _mappings.length = 0;
         selectedItem = NULL_BITMAP_DATA.clone();
 
-    }
-
-    [Bindable]
-
-
-    public function get numberOfChildren():int
-    {
-        return _numberOfChildren;
-    }
-
-    public function set numberOfChildren( value:int ):void
-    {
-        _numberOfChildren = value;
     }
 }
 }

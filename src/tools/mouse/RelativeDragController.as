@@ -17,7 +17,7 @@ public class RelativeDragController extends DragController
     private function removeDownListeners():void
     {
         client.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.removeEventListener( Event.ENTER_FRAME, onEnterFrame );
+        client.removeEventListener( Event.ENTER_FRAME, onMouseMove );
     }
 
     override protected function removeAllListeners():void
@@ -30,7 +30,7 @@ public class RelativeDragController extends DragController
     {
         _point = client.mouseX;
         client.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.addEventListener( Event.ENTER_FRAME, onEnterFrame );
+        client.addEventListener( Event.ENTER_FRAME, onMouseMove );
     }
 
     override protected function onMouseUp( event:MouseEvent ):void
@@ -38,7 +38,7 @@ public class RelativeDragController extends DragController
         removeDownListeners();
     }
 
-    override protected function onEnterFrame( event:Event ):void
+    override protected function onMouseMove( event:Event ):void
     {
 
         multiplier = (_point - client.mouseX) / client.width;
