@@ -2,9 +2,12 @@ package config
 {
 import flash.display.NativeWindow;
 
+import mx.controls.ProgressBar;
+
 import plover.view.ButtonMediator;
 import plover.view.DragControlComboMediator;
 import plover.view.NativeWindowMediator;
+import plover.view.ProgressBarMediator;
 import plover.view.SlideMediator;
 import plover.view.components.DragControlCombo;
 import plover.view.components.SlideBase;
@@ -31,6 +34,7 @@ public class ViewConfig implements IConfig
         mediators.map( Button ).toMediator( ButtonMediator );
         mediators.map( SlideBase ).toMediator( SlideMediator );
         mediators.map( DragControlCombo ).toMediator( DragControlComboMediator );
+        mediators.map( ProgressBar ).toMediator( ProgressBarMediator );
 
         const mainView:ContextView = injector.getInstance( ContextView );
         mediators.map( NativeWindow ).toMediator( NativeWindowMediator );

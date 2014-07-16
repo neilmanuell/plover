@@ -14,6 +14,7 @@ import com.greensock.loading.data.XMLLoaderVars;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.events.IEventDispatcher;
+import flash.events.ProgressEvent;
 import flash.net.URLRequest;
 import flash.utils.ByteArray;
 
@@ -115,13 +116,13 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
     public function getBitmapData( name:String, unload:Boolean = false ):BitmapData
     {
         const loader:ImageLoader = LoaderMax.getLoader( name ) as ImageLoader;
-        if ( loader == null || loader.content == null  || loader.content.rawContent == null )
+        if ( loader == null || loader.content == null || loader.content.rawContent == null )
         {
             //  _logger.warn( "Bitmap with the name {0} does not exist. Returning broken image.", [name] );
             return NULL_BITMAP_DATA.clone();
         }
 
-        if( unload)loader.unload();
+        if ( unload )loader.unload();
 
         return  loader.content.rawContent.bitmapData.clone();
     }
@@ -188,7 +189,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 
     private function onProgress( event:LoaderEvent ):void
     {
-        _dispatcher.dispatchEvent( event );
+        _dispatcher.dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, _loader.bytesLoaded, _loader.bytesTotal ) );
 
     }
 
