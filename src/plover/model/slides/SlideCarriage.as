@@ -98,6 +98,8 @@ public class SlideCarriage
 import flash.display.BitmapData;
 import flash.filesystem.File;
 
+import plover.utils.bmp.resizeBitmapDataByEdges;
+
 class Mapping
 {
     public var file:File;
@@ -106,7 +108,19 @@ class Mapping
     public function Mapping( file:File, bmp:BitmapData ):void
     {
         this.file = file;
-        this.bmp = bmp;
+        this.bmp = resize( bmp, 1600, 1200 );
 
+    }
+
+    private static function resize( bmp:BitmapData, maxWidth:Number, maxHeight:Number ):BitmapData
+    {
+        if ( bmp.width > maxWidth || bmp.height > maxHeight )
+        {
+            return resizeBitmapDataByEdges( bmp, maxWidth, maxHeight, true );
+        }
+        else
+        {
+            return bmp;
+        }
     }
 }
