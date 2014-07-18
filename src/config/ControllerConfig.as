@@ -1,29 +1,22 @@
 package config
 {
 import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
 
 import plover.controller.cmds.ChangeDragControl;
-import plover.controller.cmds.DecreaseSlide;
-import plover.controller.cmds.EnableDrag;
-import plover.controller.cmds.ExitApplication;
-import plover.controller.cmds.FlushImageModel;
-import plover.controller.cmds.HandleLoadedImages;
-import plover.controller.cmds.IncreaseSlide;
-import plover.controller.cmds.LoadImages;
-import plover.controller.cmds.OpenImportDialogue;
-import plover.controller.cmds.PopulateImageModel;
-import plover.controller.cmds.SetSlideMultiplier;
-import plover.controller.constants.ButtonNames;
-import plover.controller.events.ButtonClickEvent;
+import plover.controller.cmds.exiting.ExitApplication;
+import plover.controller.cmds.importing.OpenImportDialogue;
+import plover.controller.cmds.state.SetupIdling;
+import plover.controller.cmds.state.SetupImporting;
+import plover.controller.cmds.state.TearDownIdling;
+import plover.controller.cmds.state.TearDownImporting;
 import plover.controller.events.ChangeDragControlEvent;
-import plover.service.image.LoadImageEvent;
+import plover.controller.state.StateConstants;
 
 import robotlegs.bender.framework.api.IConfig;
 
 import statemachine.flow.api.EventFlowMap;
 
-import tools.mouse.MouseDragEvent;
+import tools.statemachine.StateEvent;
 
 public class ControllerConfig implements IConfig
 {
@@ -33,8 +26,41 @@ public class ControllerConfig implements IConfig
 
     public function configure():void
     {
+        flow
+                .on( StateConstants.SETUP_IDLING, StateEvent )
+                .all.execute( SetupIdling );
 
         flow
+                .on( StateConstants.TEARDOWN_IDLING, StateEvent )
+                .all.execute( TearDownIdling );
+
+        flow
+                .on( StateConstants.SETUP_IMPORTING, StateEvent )
+                .all.execute( SetupImporting );
+
+        flow
+                .on( StateConstants.TEARDOWN_IMPORTING, StateEvent )
+                .all.execute( TearDownImporting );
+
+        flow
+                .on( StateConstants.INIT_IMPORTING, StateEvent )
+                .all.execute( OpenImportDialogue );
+
+        flow
+                .on( StateConstants.INIT_EXITING_APPLICATION, StateEvent )
+                .all.execute( ExitApplication );
+
+
+
+
+
+        flow
+                .on( ChangeDragControlEvent.CHANGE, ChangeDragControlEvent )
+                .all.execute( ChangeDragControl );
+
+
+
+       /* flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
                 .all.onApproval( onlyIfNameIs( ButtonNames.IMPORT_IMAGES ) )
                 .execute( OpenImportDialogue );
@@ -91,7 +117,7 @@ public class ControllerConfig implements IConfig
         flow
                 .on( MouseDragEvent.DRAG, MouseDragEvent )
                 .all.execute( SetSlideMultiplier );
-        //.and.fix();
+        //.and.fix();*/
 
 
     }
@@ -104,12 +130,6 @@ public class ControllerConfig implements IConfig
         }
     }
 
-    public function onlyIfNameIs( name:String ):Function
-    {
-        return function ( event:ButtonClickEvent ):Boolean
-        {
-            return (event.name == name);
-        }
-    }
+
 }
 }

@@ -5,6 +5,8 @@ import plover.model.slides.SlideCarriage;
 import robotlegs.bender.framework.api.IConfig;
 import robotlegs.bender.framework.api.IInjector;
 
+import tools.mouse.DragControllerClient;
+
 public class ModelConfig implements IConfig
 {
 
@@ -15,6 +17,7 @@ public class ModelConfig implements IConfig
     public function configure():void
     {
         injector.map( SlideCarriage ).asSingleton();
+        injector.map( DragControllerClient ).toValue( injector.getInstance( SlideCarriage ) );
     }
 }
 }

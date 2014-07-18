@@ -1,4 +1,4 @@
-package plover.controller.cmds
+package plover.controller.cmds.importing
 {
 import plover.model.slides.SlideCarriage;
 

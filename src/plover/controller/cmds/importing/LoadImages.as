@@ -1,6 +1,6 @@
-package plover.controller.cmds
+package plover.controller.cmds.importing
 {
-import plover.service.image.LoadImageEvent;
+import plover.service.image.ImportEvent;
 
 import tools.loaderservice.api.LoaderService;
 
@@ -11,7 +11,7 @@ public class LoadImages
     public var service:LoaderService;
 
     [Inject]
-    public var event:LoadImageEvent;
+    public var event:ImportEvent;
 
     public function execute():void
     {

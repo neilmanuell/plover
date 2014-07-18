@@ -4,10 +4,11 @@ import flash.display.BitmapData;
 import flash.filesystem.File;
 
 import tools.loaderservice.data.NULL_BITMAP_DATA;
+import tools.mouse.DragControllerClient;
 
 use namespace NULL_BITMAP_DATA;
 
-public class SlideCarriage
+public class SlideCarriage  implements DragControllerClient
 {
 
     private const _mappings:Vector.<Mapping> = new <Mapping>[];
@@ -35,7 +36,13 @@ public class SlideCarriage
 
     public function set selectedIndex( value:int ):void
     {
-        if ( value < 0 || value > _mappings.length - 1 || value == _selectedIndex )return;
+        if ( value == _selectedIndex )return;
+        else if ( value == -1 )
+        {
+            _selectedIndex = value
+            return;
+        }
+        else if ( value < 0 || value > _mappings.length - 1 )return;
         _selectedIndex = value;
         selectedItem = _mappings[_selectedIndex].bmp;
     }
@@ -67,12 +74,30 @@ public class SlideCarriage
         _remainder = value;
     }
 
-    public function set multiplier( value:Number ):void
+
+    public function get length():int
     {
-        const f:Number = value * _mappings.length - 1;
-        selectedIndex = int( f );
-        remainder = f - _selectedIndex;
-        // trace( " f = " + f + " i = " + selectedIndex + " r = " + _remainder );
+        return _mappings.length;
+    }
+
+    public function sort():void
+    {
+        _mappings.sort( function orderLastName( a:Mapping, b:Mapping ):int
+        {
+            const fileA:File = a.file;
+            const fileB:File = b.file;
+
+            if ( fileA.name > fileB.name )
+            {
+                return 1
+            }
+
+            else if ( fileA.name < fileB.name )
+            {
+                return -1
+            }
+            return 0
+        } )
     }
 
     public function getItemAt( index:int ):BitmapData
@@ -88,8 +113,13 @@ public class SlideCarriage
 
     public function flush():void
     {
+        _mappings.forEach( function ( item:Mapping, index:int, v:Vector.<Mapping> ):void
+        {
+            item.bmp.dispose();
+        } );
+
         _mappings.length = 0;
-        selectedItem = NULL_BITMAP_DATA.clone();
+        selectedItem = NULL_BITMAP_DATA;
 
     }
 }
@@ -97,8 +127,6 @@ public class SlideCarriage
 
 import flash.display.BitmapData;
 import flash.filesystem.File;
-
-import plover.utils.bmp.resizeBitmapDataByEdges;
 
 class Mapping
 {
@@ -108,19 +136,8 @@ class Mapping
     public function Mapping( file:File, bmp:BitmapData ):void
     {
         this.file = file;
-        this.bmp = resize( bmp, 1600, 1200 );
-
+        this.bmp = bmp;
     }
 
-    private static function resize( bmp:BitmapData, maxWidth:Number, maxHeight:Number ):BitmapData
-    {
-        if ( bmp.width > maxWidth || bmp.height > maxHeight )
-        {
-            return resizeBitmapDataByEdges( bmp, maxWidth, maxHeight, true );
-        }
-        else
-        {
-            return bmp;
-        }
-    }
+
 }

@@ -5,14 +5,13 @@ import flash.filesystem.File;
 
 import plover.utils.files.getURLSFromFiles;
 
-public class LoadImageEvent extends Event
+public class ImportEvent extends Event
 {
     public static const LOAD_REQUEST:String = "LoadImageEvent.LOAD_REQUEST";
-    public static const LOAD_COMPLETE:String = "LoadImageEvent.LOAD_COMPLETE";
 
-    public function LoadImageEvent( type:String, files:Vector.<File> )
+    public function ImportEvent( files:Vector.<File> )
     {
-        super( type );
+        super( LOAD_REQUEST );
         _files = files;
     }
 
@@ -30,9 +29,24 @@ public class LoadImageEvent extends Event
         return _urls || (_urls = getURLSFromFiles( _files ));
     }
 
+    public function getFileFromURL( url:String ):File
+    {
+        var out:File;
+        _files.every( function ( item:File, index:int, v:Vector.<File> ):Boolean
+        {
+            if ( item.url == url )
+            {
+                out = item;
+                return false;
+            }
+            return true;
+        } )
+        return out;
+    }
+
     override public function clone():Event
     {
-        return new LoadImageEvent( type, _files );
+        return new ImportEvent( _files );
     }
 }
 }

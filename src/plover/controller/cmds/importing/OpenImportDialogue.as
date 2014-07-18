@@ -1,11 +1,14 @@
-package plover.controller.cmds
+package plover.controller.cmds.importing
 {
 import flash.events.IEventDispatcher;
 
+import plover.controller.state.StateConstants;
 import plover.service.file.ImageFileService;
 import plover.service.file.ImageServiceResults;
 import plover.service.file.ImageServiceStatus;
-import plover.service.image.LoadImageEvent;
+import plover.service.image.ImportEvent;
+
+import tools.statemachine.StateEvent;
 
 public class OpenImportDialogue
 {
@@ -21,9 +24,14 @@ public class OpenImportDialogue
         {
             if ( result.status == ImageServiceStatus.SUCCESS )
             {
-                dispatcher.dispatchEvent( new LoadImageEvent( LoadImageEvent.LOAD_REQUEST, result.files ) );
+                dispatcher.dispatchEvent( new ImportEvent( result.files ) );
             }
-        } )
+
+            else
+            {
+                dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, StateConstants.IDLE ) )
+            }
+        } );
     }
 }
 }

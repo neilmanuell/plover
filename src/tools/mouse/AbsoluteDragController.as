@@ -1,34 +1,32 @@
 package tools.mouse
 {
-import flash.events.Event;
-import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 
 public class AbsoluteDragController extends DragController
 {
-    public function AbsoluteDragController( dispatcher:IEventDispatcher, view:ContextView )
+    public function AbsoluteDragController( client:DragControllerClient, view:ContextView )
     {
-        super( dispatcher, view );
+        super( client, view );
     }
 
     private function removeDownListeners():void
     {
-        client.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+        _display.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
+        _display.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
 
     override protected function removeAllListeners():void
     {
-        client.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
+        _display.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
         removeDownListeners();
     }
 
     override protected function onMouseDown( event:MouseEvent ):void
     {
-        client.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        client.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+        _display.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
+        _display.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
 
     override protected function onMouseUp( event:MouseEvent ):void
@@ -36,10 +34,10 @@ public class AbsoluteDragController extends DragController
         removeDownListeners();
     }
 
-    override protected function onMouseMove( event:Event ):void
+    override protected function onMouseMove( event:MouseEvent ):void
     {
-        trace( client.mouseX  );
-        multiplier = client.mouseX / client.width;
+        trace( _display.mouseX  );
+        multiplier = _display.mouseX / _display.width;
 
     }
 }

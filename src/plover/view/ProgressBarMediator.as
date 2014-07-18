@@ -22,9 +22,6 @@ public class ProgressBarMediator extends Mediator
 
     private function onProgress(event:ProgressEvent):void
     {
-
-
-        trace("DDDD " +  (event.bytesLoaded / event.bytesTotal ));
         view.setProgress( event.bytesLoaded, event.bytesTotal);
     }
 

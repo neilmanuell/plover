@@ -13,7 +13,7 @@ public class NativeWindowMediator extends Mediator
 
     override public function initialize():void
     {
-        view.maximize();
+       // view.maximize();
         addContextListener( ExitApplicationEvent.EXIT, onExit )
     }
 

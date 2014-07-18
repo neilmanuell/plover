@@ -29,7 +29,6 @@ import tools.loaderservice.data.NULL_BITMAP_DATA;
 import tools.loaderservice.data.NULL_BYTE_ARRAY;
 import tools.loaderservice.data.NULL_DISPLAY_OBJECT;
 import tools.loaderservice.data.NULL_XML;
-import tools.signals.Signal0;
 
 use namespace NULL_BITMAP_DATA;
 
@@ -37,7 +36,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 {
 
 
-    private const _queueComplete:Signal0 = new Signal0();
+    private const _on:LoaderSignalBus = new LoaderSignalBus();
 
     public function LoaderMaxService( dispatcher:IEventDispatcher )
     {
@@ -49,16 +48,19 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
     private var _dispatcher:IEventDispatcher;
     private var _loader:LoaderCore;
 
-    public function get queueComplete():Signal0
+    public function get on():LoaderSignalBus
     {
-        return _queueComplete;
+        return _on;
     }
+
+
 
     /*
      <MP3Loader url="assets/sound/Sound_Restart_btn.mp3" name="Sound_Restart_btn" autoPlay="false" load="true" repeat="0"/>
      <ImageLoader url="assets/UI/bkg.jpg" name="bkg" load="true"/>
      <XMLLoader url="assets/data/locale.xml" name="locale" load="true"/>
      */
+
 
     public function loadManifest( url:* ):void
     {
@@ -184,19 +186,20 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 
     private function onChildComplete( event:LoaderEvent ):void
     {
+        _on.itemComplete.dispatch(event.target.url);
         //   _logger.info( "File {0} load complete.", [event.target.url] );
     }
 
     private function onProgress( event:LoaderEvent ):void
     {
         _dispatcher.dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, _loader.bytesLoaded, _loader.bytesTotal ) );
-
+         _on.queueProgress.dispatch(_loader.bytesLoaded, _loader.bytesTotal)
     }
 
     private function onComplete( event:LoaderEvent ):void
     {
         //  _logger.info( "Load Queue Completed." );
-        _queueComplete.dispatch();
+        _on.queueComplete.dispatch();
         _dispatcher.dispatchEvent( event );
     }
 }
