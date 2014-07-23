@@ -6,6 +6,7 @@ import robotlegs.bender.framework.api.IInjector;
 
 import tools.loaderservice.api.BitmapDataProvider;
 import tools.loaderservice.api.FontLibrary;
+import tools.loaderservice.api.JSONProvider;
 import tools.loaderservice.api.LoaderService;
 import tools.loaderservice.api.SWFProvider;
 import tools.loaderservice.api.XMLProvider;
@@ -25,6 +26,7 @@ public class LoaderServiceExtension implements IExtension
         injector.map( BitmapDataProvider ).toValue( service );
         injector.map( SWFProvider ).toValue( service );
         injector.map( XMLProvider ).toValue( service );
+        injector.map( JSONProvider ).toValue( service );
 
     }
 }

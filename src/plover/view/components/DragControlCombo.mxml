@@ -5,8 +5,8 @@
 <s:ComboBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
     <s:dataProvider>
         <s:ArrayCollection>
-            <fx:Object label="Hooks Drag" name="hookDragControl"/>
             <fx:Object label="Relative Drag" name="relativeDragControl"/>
+            <fx:Object label="Delayed Drag" name="delayedDragControl"/>
             <fx:Object label="Absolute Drag" name="absoluteDragControl"/>
         </s:ArrayCollection>
     </s:dataProvider>

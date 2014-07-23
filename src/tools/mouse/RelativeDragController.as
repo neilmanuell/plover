@@ -27,7 +27,7 @@ public class RelativeDragController extends DragController
 
     override protected function onMouseDown( event:MouseEvent ):void
     {
-        _previousPoint = _display.mouseX / _display.width;
+        _previousPoint = _display.mouseX / (_display.width * 0.5);
         _previousMultiplier = multiplier;
         _display.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
         _display.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
@@ -41,7 +41,7 @@ public class RelativeDragController extends DragController
     override protected function onMouseMove( event:MouseEvent ):void
     {
 
-        const currentPoint:Number = _display.mouseX / _display.width ;
+        const currentPoint:Number = _display.mouseX / (_display.width * 0.5) ;
         multiplier =  _previousMultiplier+ (currentPoint - _previousPoint);
 
     }

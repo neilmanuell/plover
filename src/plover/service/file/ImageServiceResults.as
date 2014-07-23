@@ -1,16 +1,15 @@
 package plover.service.file
 {
-import flash.filesystem.File;
-
 public class ImageServiceResults
 {
-    public var status:String;
-    public var files:Vector.<File>;
+    public var success:Boolean;
+    public var file:*;
 
-    public function ImageServiceResults( status:String, files:*)
+    public function ImageServiceResults( status:Boolean, file:*)
     {
-        this.status = status;
-        this.files = ( files is Array) ? Vector.<File>( files ) : files;
+        this.success = status;
+
+        this.file = file;
     }
 }
 }

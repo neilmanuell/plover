@@ -1,5 +1,6 @@
 package config
 {
+import plover.model.files.FileModel;
 import plover.model.slides.SlideCarriage;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -17,6 +18,7 @@ public class ModelConfig implements IConfig
     public function configure():void
     {
         injector.map( SlideCarriage ).asSingleton();
+        injector.map( FileModel ).asSingleton();
         injector.map( DragControllerClient ).toValue( injector.getInstance( SlideCarriage ) );
     }
 }

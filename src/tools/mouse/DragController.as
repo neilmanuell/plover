@@ -2,7 +2,6 @@ package tools.mouse
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
-import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 
 import robotlegs.bender.extensions.contextView.ContextView;
@@ -16,10 +15,10 @@ public class DragController
     }
 
     protected var _display:DisplayObject;
+    protected var _choke:Number = -1;
+    private var _client:DragControllerClient;
 
     private var _enabled:Boolean = false;
-    private var _multiplier:Number = 0;
-    private var _client:DragControllerClient;
 
     public function get enabled():Boolean
     {
@@ -40,6 +39,24 @@ public class DragController
         {
             removeAllListeners();
         }
+    }
+
+    private var _multiplier:Number = 0;
+
+    protected function get multiplier():Number
+    {
+        return _multiplier;
+    }
+
+    protected function set multiplier( value:Number ):void
+    {
+        if ( value == _multiplier )return;
+        _multiplier = value;
+        const f:Number = _multiplier * _client.length - 1;
+        const fint:int = (_choke == -1) ? f : (f > _choke) ? _choke : f;
+
+        _client.selectedIndex = fint;
+        _client.remainder = f - fint;
     }
 
     public function destroy():void
@@ -72,21 +89,6 @@ public class DragController
     protected function onEnterFrame( event:Event ):void
     {
 
-    }
-
-    protected function set multiplier( value:Number ):void
-    {
-        if ( value == _multiplier )return;
-        _multiplier = value;
-        const f:Number = _multiplier * _client.length - 1;
-        const fint:int = f;
-        _client.selectedIndex = fint;
-        _client.remainder = f - fint;
-    }
-
-    protected function get multiplier():Number
-    {
-        return _multiplier;
     }
 }
 }

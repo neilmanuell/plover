@@ -2,6 +2,7 @@ package tools.loaderservice.core
 {
 import com.greensock.events.LoaderEvent;
 import com.greensock.loading.BinaryDataLoader;
+import com.greensock.loading.DataLoader;
 import com.greensock.loading.ImageLoader;
 import com.greensock.loading.LoaderMax;
 import com.greensock.loading.MP3Loader;
@@ -20,6 +21,7 @@ import flash.utils.ByteArray;
 
 import tools.loaderservice.api.BinaryDataProvider;
 import tools.loaderservice.api.BitmapDataProvider;
+import tools.loaderservice.api.JSONProvider;
 import tools.loaderservice.api.LoaderService;
 import tools.loaderservice.api.MP3Player;
 import tools.loaderservice.api.MP3Provider;
@@ -32,7 +34,7 @@ import tools.loaderservice.data.NULL_XML;
 
 use namespace NULL_BITMAP_DATA;
 
-public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLProvider, BinaryDataProvider, MP3Provider, SWFProvider
+public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLProvider, BinaryDataProvider, MP3Provider, SWFProvider, JSONProvider
 {
 
 
@@ -42,7 +44,11 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
     {
         _dispatcher = dispatcher;
 
-        LoaderMax.activate( [XMLLoader, ImageLoader, MP3Loader, BinaryDataLoader, SWFLoader] )
+        LoaderMax.activate( [ImageLoader, DataLoader] );
+
+        LoaderMax.registerFileType( "json", DataLoader );
+
+
     }
 
     private var _dispatcher:IEventDispatcher;
@@ -52,7 +58,6 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
     {
         return _on;
     }
-
 
 
     /*
@@ -87,6 +92,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 
         _loader = new LoaderMax( v );
         XMLLoader.parseLoaders( xml, _loader as LoaderMax );
+
         _loader.load();
 
     }
@@ -94,11 +100,13 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
     public function load( urls:Array ):void
     {
         const v:LoaderMaxVars = new LoaderMaxVars();
-        v.name( "LoadManifest" );
-        v.onComplete( onComplete );
-        v.onProgress( onProgress );
-        v.onChildComplete( onChildComplete );
-        v.onChildFail( onChildError );
+        v
+                .name( "LoadManifest" )
+                .onComplete( onComplete )
+                .onProgress( onProgress )
+                .onChildComplete( onChildComplete )
+                .onChildFail( onChildError )
+                .maxConnections( 1 );
 
         _loader = LoaderMax.parse( urls, v );
 
@@ -164,6 +172,19 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
         return loader.content;
     }
 
+    public function getJSON( name:String ):Object
+    {
+        const loader:DataLoader = LoaderMax.getLoader( name ) as DataLoader;
+        if ( loader == null )
+        {
+            //    _logger.warn( "ByteArray with the name {0} does not exist. Returning NULL_BYTE_ARRAY.", [name] );
+            return {error: "null loader"};
+        }
+        const out:* = JSON.parse( loader.content );
+        loader.unload();
+        return out;
+    }
+
     public function getMP3Player( name:String ):MP3Player
     {
         const loader:MP3Loader = LoaderMax.getLoader( name ) as MP3Loader;
@@ -186,14 +207,14 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 
     private function onChildComplete( event:LoaderEvent ):void
     {
-        _on.itemComplete.dispatch(event.target.url);
+        _on.itemComplete.dispatch( event.target.url );
         //   _logger.info( "File {0} load complete.", [event.target.url] );
     }
 
     private function onProgress( event:LoaderEvent ):void
     {
         _dispatcher.dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, _loader.bytesLoaded, _loader.bytesTotal ) );
-         _on.queueProgress.dispatch(_loader.bytesLoaded, _loader.bytesTotal)
+        _on.queueProgress.dispatch( _loader.bytesLoaded, _loader.bytesTotal )
     }
 
     private function onComplete( event:LoaderEvent ):void

@@ -8,6 +8,7 @@ import robotlegs.bender.framework.api.IInjector;
 import tools.mouse.AbsoluteDragController;
 import tools.mouse.DragControllerMap;
 import tools.mouse.HookDragController;
+import tools.mouse.RelativeDelayDragController;
 import tools.mouse.RelativeDragController;
 
 public class MouseDragConfig implements IConfig
@@ -23,6 +24,7 @@ public class MouseDragConfig implements IConfig
         map.add( injector.instantiateUnmapped( AbsoluteDragController ), DragControllerNames.ABSOLUTE_DRAG_CONTROL );
         map.add( injector.instantiateUnmapped( RelativeDragController ), DragControllerNames.RELATIVE_DRAG_CONTROL );
         map.add( injector.instantiateUnmapped( HookDragController ), DragControllerNames.HOOK_DRAG_CONTROL );
+        map.add( injector.instantiateUnmapped( RelativeDelayDragController ), DragControllerNames.DELAYED_DRAG_CONTROL );
         injector.map( DragControllerMap ).toValue( map );
 
     }

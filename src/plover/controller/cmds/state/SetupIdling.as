@@ -23,7 +23,7 @@ public class SetupIdling
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
                 .all.onApproval( onlyIfButtonNameIs( ButtonNames.IMPORT_IMAGES ) )
-                .execute( changeStateTo( StateConstants.IMPORT, dispatcher ) );
+                .execute( changeStateTo( StateConstants.OPEN, dispatcher ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )

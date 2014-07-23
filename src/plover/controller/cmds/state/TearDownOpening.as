@@ -14,7 +14,7 @@ import plover.service.image.ImportEvent;
 
 import statemachine.flow.api.EventFlowMap;
 
-public class SetupImporting
+public class TearDownOpening
 {
     [Inject]
     public var flow:EventFlowMap;
@@ -24,9 +24,7 @@ public class SetupImporting
 
     public function execute():void
     {
-        flow
-                .on( ImportEvent.LOAD_REQUEST, ImportEvent )
-                .all.execute( FlushImageModel, EnableDrag,  HandleQueueComplete, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
+
 
 
 

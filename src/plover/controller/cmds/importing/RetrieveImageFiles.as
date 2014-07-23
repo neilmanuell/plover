@@ -1,22 +1,19 @@
 package plover.controller.cmds.importing
 {
 import plover.model.files.FileModel;
-import plover.service.image.ImportEvent;
+import plover.service.file.ImageFileService;
 
-import tools.loaderservice.api.LoaderService;
-
-public class LoadImages
+public class RetrieveImageFiles
 {
-
     [Inject]
-    public var service:LoaderService;
+    public var service:ImageFileService;
 
     [Inject]
     public var model:FileModel;
 
     public function execute():void
     {
-        service.load( model.imageURLs );
+        model.setImageFiles( service.retrieveImages( model.parent ) )
     }
 }
 }
