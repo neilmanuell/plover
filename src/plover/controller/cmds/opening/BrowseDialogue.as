@@ -2,7 +2,7 @@ package plover.controller.cmds.opening
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.state.StateConstants;
+import plover.controller.state.StateConstant;
 import plover.model.files.FileModel;
 import plover.service.file.BrowseFileService;
 import plover.service.file.ImageServiceResults;
@@ -24,14 +24,14 @@ public class BrowseDialogue
     {
         service.browse().addOnce( function ( result:ImageServiceResults ):void
                 {
-                    var action:String = StateConstants.IDLE;
+                    var action:String = StateConstant.IDLE;
 
                     if ( result.success )
                     {
                         model.setParentFile( result.file );
                         action = ( model.listExists )
-                                ? StateConstants.ACQUIRE
-                                : StateConstants.IMPORT
+                                ? StateConstant.ACQUIRE
+                                : StateConstant.IMPORT
                     }
                     dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) );
 

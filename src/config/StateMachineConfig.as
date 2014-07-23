@@ -2,7 +2,7 @@ package config
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.state.StateConstants;
+import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
 import robotlegs.bender.framework.api.IContext;
@@ -40,7 +40,7 @@ public class StateMachineConfig implements IConfig
     public function configure():void
     {
         trace( "StateMachineConfig.configure()" );
-        var fsmInjector:FSMInjector = new FSMInjector( StateConstants.FSM );
+        var fsmInjector:FSMInjector = new FSMInjector( StateConstant.FSM );
         var stateMachine:StateMachine = new StateMachine( eventDispatcher );
         fsmInjector.inject( stateMachine );
 

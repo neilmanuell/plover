@@ -1,11 +1,10 @@
 package plover.view.components
 {
-import plover.model.slides.SlideCarriage;
+import mx.containers.Canvas;
 
-import spark.components.Group;
 import spark.components.Image;
 
-public class SlideBase extends Group
+public class SlideBase extends Canvas
 {
     public var bottomImage:Image;
     public var topImage:Image;
@@ -34,18 +33,18 @@ public class SlideBase extends Group
         topImage.alpha = value;
     }
 
-    private var _data:SlideCarriage;
+    //  private var _data:SlideCarriage;
 
-    [Bindable]
-    public function get data():SlideCarriage
-    {
-        return _data;
-    }
+    /*   [Bindable]
+     public function get data():SlideCarriage
+     {
+     return _data;
+     }
 
-    public function set data( value:SlideCarriage ):void
-    {
-        _data = value;
+     public function set data( value:SlideCarriage ):void
+     {
+     _data = value;
 
-    }
+     }*/
 }
 }

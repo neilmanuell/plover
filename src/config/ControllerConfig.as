@@ -1,11 +1,14 @@
 package config
 {
+import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
 
 import plover.controller.cmds.ChangeDragControl;
 import plover.controller.cmds.EnableDrag;
 import plover.controller.cmds.acquiring.AcquireList;
 import plover.controller.cmds.acquiring.HandleListAcquired;
+import plover.controller.cmds.bootstrapping.CreateView;
 import plover.controller.cmds.exiting.ExitApplication;
 import plover.controller.cmds.importing.FlushImageModel;
 import plover.controller.cmds.importing.HandleItemLoadComplete;
@@ -23,7 +26,8 @@ import plover.controller.cmds.state.TearDownImporting;
 import plover.controller.cmds.state.TearDownOpening;
 import plover.controller.events.ChangeDragControlEvent;
 import plover.controller.guards.OnlyIfListFileDoesNotExist;
-import plover.controller.state.StateConstants;
+import plover.controller.guards.onlyIfKeyIs;
+import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
 
@@ -37,36 +41,43 @@ public class ControllerConfig implements IConfig
     [Inject]
     public var flow:EventFlowMap;
 
+
+
     public function configure():void
     {
         flow
-                .on( StateConstants.SETUP_IDLING, StateEvent )
+                .on( StateConstant.BOOTSTRAP, StateEvent )
+                .all.execute( CreateView );
+
+
+        flow
+                .on( StateConstant.SETUP_IDLING, StateEvent )
                 .all.execute( SetupIdling );
 
         flow
-                .on( StateConstants.TEARDOWN_IDLING, StateEvent )
+                .on( StateConstant.TEARDOWN_IDLING, StateEvent )
                 .all.execute( TearDownIdling );
 
         flow
-                .on( StateConstants.SETUP_OPENING, StateEvent )
+                .on( StateConstant.SETUP_OPENING, StateEvent )
                 .all.execute( SetupOpening );
 
         flow
-                .on( StateConstants.TEARDOWN_OPENING, StateEvent )
+                .on( StateConstant.TEARDOWN_OPENING, StateEvent )
                 .all.execute( TearDownOpening );
 
         flow
-                .on( StateConstants.INIT_OPENING, StateEvent )
+                .on( StateConstant.INIT_OPENING, StateEvent )
                 .all.execute( BrowseDialogue );
 
         flow
-                .on( StateConstants.SETUP_IMPORTING, StateEvent )
+                .on( StateConstant.SETUP_IMPORTING, StateEvent )
                 .all.onApproval( OnlyIfListFileDoesNotExist )
                 .execute( RetrieveImageFiles, WriteToListFile );
 
 
         flow
-                .on( StateConstants.INIT_IMPORTING, StateEvent )
+                .on( StateConstant.INIT_IMPORTING, StateEvent )
                 .all.execute( FlushImageModel, EnableDrag, HandleQueueComplete, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
         flow
@@ -75,21 +86,23 @@ public class ControllerConfig implements IConfig
 
 
         flow
-                .on( StateConstants.TEARDOWN_IMPORTING, StateEvent )
+                .on( StateConstant.TEARDOWN_IMPORTING, StateEvent )
                 .all.execute( TearDownImporting );
 
         flow
-                .on( StateConstants.TEARDOWN_AQUIRING, StateEvent )
+                .on( StateConstant.TEARDOWN_AQUIRING, StateEvent )
                 .all.execute( TearDownAcquiring );
 
         flow
-                .on( StateConstants.INIT_AQUIRING, StateEvent )
+                .on( StateConstant.INIT_AQUIRING, StateEvent )
                 .all.execute( AcquireList, HandleListAcquired );
 
 
         flow
-                .on( StateConstants.INIT_EXITING_APPLICATION, StateEvent )
+                .on( StateConstant.INIT_EXITING_APPLICATION, StateEvent )
                 .all.execute( ExitApplication );
+
+
 
 
         /*
@@ -166,13 +179,7 @@ public class ControllerConfig implements IConfig
 
     }
 
-    private function onlyIfKeyIs( keyCode:uint, shift:Boolean = false ):Function
-    {
-        return function ( event:KeyboardEvent ):Boolean
-        {
-            return ((event.keyCode == keyCode) && (event.shiftKey == shift));
-        }
-    }
+
 
 
 }

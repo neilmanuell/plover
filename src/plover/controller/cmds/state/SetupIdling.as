@@ -1,12 +1,15 @@
 package plover.controller.cmds.state
 {
 import flash.events.IEventDispatcher;
+import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
 
 import plover.controller.cmds.changeStateTo;
 import plover.controller.constants.ButtonNames;
 import plover.controller.events.ButtonClickEvent;
 import plover.controller.guards.onlyIfButtonNameIs;
-import plover.controller.state.StateConstants;
+import plover.controller.guards.onlyIfKeyIs;
+import plover.controller.state.StateConstant;
 
 import statemachine.flow.api.EventFlowMap;
 
@@ -23,12 +26,17 @@ public class SetupIdling
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
                 .all.onApproval( onlyIfButtonNameIs( ButtonNames.IMPORT_IMAGES ) )
-                .execute( changeStateTo( StateConstants.OPEN, dispatcher ) );
+                .execute( changeStateTo( StateConstant.OPEN, dispatcher ) );
+
+        flow
+                .on( KeyboardEvent.KEY_UP, KeyboardEvent )
+                .all.onApproval( onlyIfKeyIs( Keyboard.I, true ) )
+                .execute( changeStateTo( StateConstant.OPEN, dispatcher ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
                 .all.onApproval( onlyIfButtonNameIs( ButtonNames.EXIT_APP ) )
-                .execute( changeStateTo( StateConstants.EXIT_APPLICATION, dispatcher ) );
+                .execute( changeStateTo( StateConstant.EXIT_APPLICATION, dispatcher ) );
     }
 }
 }

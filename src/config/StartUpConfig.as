@@ -13,7 +13,7 @@ public class StartUpConfig implements IConfig
 
     public function configure():void
     {
-      //  dispatcher.dispatchEvent( new StartUpEvent() );
+      //  dispatcher.dispatchEvent( );
     }
 }
 }

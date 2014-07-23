@@ -1,9 +1,9 @@
 package plover.controller.state
 {
-public class StateConstants
+public class StateConstant
 {
     public static const BOOTSTRAPING:String = "state/bootstrapping";
-    public static const START_APPLICATION:String = "event/startApplication";
+    public static const START_APPLICATION:String = "action/startApplication";
     public static const BOOTSTRAP:String = "event/bootstrap";
 
     public static const IDLING:String = "event/idling";
@@ -36,10 +36,10 @@ public class StateConstants
     public static const INIT_EXITING_APPLICATION:String = "event/init/exitingApplication";
 
 
-    public static const FSM:XML = <fsm initial={IDLING}>
+    public static const FSM:XML = <fsm initial={BOOTSTRAPING}>
 
         <!-- THE INITIAL STATE -->
-        <state name={BOOTSTRAPING} changed={BOOTSTRAP}>
+        <state name={BOOTSTRAPING} exiting={BOOTSTRAP}>
 
             <transition action={START_APPLICATION}
             target={IDLING}/>

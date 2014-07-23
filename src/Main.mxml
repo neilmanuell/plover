@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
                        xmlns:rl2="http://ns.robotlegs.org/flex/rl2" xmlns:bundles="bundles.*" xmlns:config="config.*"
-                       xmlns:components="plover.view.components.*" xmlns:mx="library://ns.adobe.com/flex/mx"
+                       xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="plover.view.components.*"
                        frameRate="60">
     <fx:Declarations>
         <rl2:ContextBuilder>
@@ -13,8 +13,8 @@
             <config:ServiceConfig/>
             <config:KeyboardRouterConfig/>
             <config:MouseDragConfig/>
-            <config:ControllerConfig/>
             <config:StateMachineConfig/>
+            <config:ControllerConfig/>
             <config:StartUpConfig/>
         </rl2:ContextBuilder>
     </fx:Declarations>
@@ -24,10 +24,8 @@
         <mx:ProgressBar mode="manual" label="" labelPlacement="center" width="100%" height="22"/>
         <s:Button id="exitApp" label="exit"/>
     </s:HGroup>
-
-    <components:Slide id="slide" topAlpha="{slide.data.remainder}" selectedIndex="{slide.data.selectedIndex}" width="100%" height="100%"/>
-
-    <s:HSlider mouseChildren="false" mouseEnabled="false" width="100%" value="{slide.data.selectedIndex}" maximum="{slide.data.numberOfChildren-1}"/>
+    <s:TabBar id="tabBar" width="100%"/>
+    <mx:ViewStack id="viewStack" width="100%"  height="100%"/>
     <s:layout>
         <s:VerticalLayout/>
     </s:layout>

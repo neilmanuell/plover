@@ -2,7 +2,7 @@ package plover.controller.cmds.importing
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.state.StateConstants;
+import plover.controller.state.StateConstant;
 
 import plover.model.slides.SlideCarriage;
 
@@ -26,7 +26,7 @@ public class HandleQueueComplete
         service.on.queueComplete.addOnce( function ():void
         {
             model.selectedIndex = 0;
-            dispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, StateConstants.IDLE))
+            dispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, StateConstant.IDLE))
         } );
     }
 }
