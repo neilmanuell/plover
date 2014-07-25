@@ -1,6 +1,7 @@
 package plover.controller.cmds.importing
 {
 import plover.model.files.FileModel;
+import plover.model.slides.SlideCarriage;
 import plover.service.file.DataFileOutService;
 
 public class WriteToListFile
@@ -9,12 +10,15 @@ public class WriteToListFile
     public var service:DataFileOutService;
 
     [Inject]
-    public var model:FileModel;
+    public var data:SlideCarriage;
+
+    [Inject]
+    public var files:FileModel;
 
     public function execute():void
     {
-        const data:String =  model.toString();
-        service.write( model.list, data );
+        const data:String =  data.serialise();
+        service.write( files.list, data );
     }
 }
 }

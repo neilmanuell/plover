@@ -1,6 +1,7 @@
 package plover.model.slides
 {
 import flash.display.BitmapData;
+import flash.events.EventDispatcher;
 import flash.filesystem.File;
 
 import mx.collections.ArrayCollection;
@@ -18,9 +19,30 @@ public class SlideCarriage implements DragControllerClient
 
     private var _selectedItem:BitmapData;
 
+
+    public function serialise( sort:Boolean = false ):String
+    {
+        const out:Array = [];
+
+        const len:int = _mappings.length;
+        for ( var i:int = 0; i < len; i++ )
+        {
+            var mapping:Mapping = _mappings.getItemAt( i ) as Mapping;
+            out.push( mapping.file.name );
+        }
+
+        if ( sort )
+        {
+            out.sort();
+        }
+
+        return JSON.stringify( out );
+    }
+
+
     public function get dataProvider():IList
     {
-       return _mappings;
+        return _mappings;
     }
 
     [Bindable]
@@ -47,7 +69,7 @@ public class SlideCarriage implements DragControllerClient
         if ( value == _selectedIndex )return;
         else if ( value == -1 )
         {
-            _selectedIndex = value ;
+            _selectedIndex = value;
             return;
         }
         else if ( value < 0 || value > _mappings.length - 1 )return;
@@ -116,9 +138,12 @@ public class SlideCarriage implements DragControllerClient
 }
 
 import flash.display.BitmapData;
+import flash.events.EventDispatcher;
 import flash.filesystem.File;
 
-class Mapping
+import tools.loaderservice.data.NULL_BITMAP_DATA;
+
+class Mapping   extends EventDispatcher
 {
     public var file:File;
     private var _bmp:BitmapData;
@@ -132,7 +157,21 @@ class Mapping
 
     public function get bmp():BitmapData
     {
-        return _bmp.clone();
+        var out:BitmapData = NULL_BITMAP_DATA.clone();
+        try
+        {
+            out = _bmp.clone();
+
+        }
+        catch ( error:Error )
+        {
+            trace( "" )
+        }
+        finally
+        {
+            return out;
+        }
+        return   out;
     }
 
     public function dispose():void

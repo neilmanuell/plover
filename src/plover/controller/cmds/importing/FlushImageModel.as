@@ -12,7 +12,7 @@ public class FlushImageModel
     public function execute():void
     {
         model.flush();
-
+        model.selectedIndex = -1;
     }
 }
 }

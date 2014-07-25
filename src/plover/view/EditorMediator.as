@@ -17,7 +17,6 @@ public class EditorMediator extends Mediator
     override public function initialize():void
     {
         view.dataProvider = model.dataProvider;
-
     }
 
 

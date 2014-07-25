@@ -35,8 +35,10 @@ public class SlideBase extends Canvas
         const bm1:BitmapData = bottomImage.bitmapData;
         const bm2:BitmapData = topImage.bitmapData;
 
+
         bottomImage.source = slideData.selectedItem;
         topImage.source = slideData.getItemAt( value + 1 );
+
 
         bm1.dispose();
         bm2.dispose();
@@ -48,18 +50,5 @@ public class SlideBase extends Canvas
         topImage.alpha = value;
     }
 
-    //  private var _data:SlideCarriage;
-
-    /*   [Bindable]
-     public function get data():SlideCarriage
-     {
-     return _data;
-     }
-
-     public function set data( value:SlideCarriage ):void
-     {
-     _data = value;
-
-     }*/
 }
 }

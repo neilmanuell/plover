@@ -64,33 +64,8 @@ public class FileModel
         _list = _parent.resolvePath( FileName.PLOVER_LIST_FILE );
     }
 
-    public function toString():String
-    {
-        const out:Array = [];
-        _imageFiles.forEach( function ( item:File, index:int, v:Vector.<File> ):void
-        {
-            out.push( item.name );
-        } );
 
-        out.sort();
-        return JSON.stringify(out);
-    }
 
-    /* private function orderByName( a:String, b:File ):int
-     {
-
-     if ( a.name > b.name )
-     {
-     return 1;
-     }
-
-     else if ( a.name < b.name )
-     {
-     return -1;
-     }
-     return 0;
-
-     }*/
 
     public function get listExists():Boolean
     {

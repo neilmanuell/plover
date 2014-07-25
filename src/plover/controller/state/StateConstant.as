@@ -23,17 +23,21 @@ public class StateConstant
     public static const OPENING:String = "state/opening";
     public static const SETUP_OPENING:String = "event/setUp/opening";
     public static const TEARDOWN_OPENING:String = "event/tearDown/opening";
-    public static const INIT_OPENING:String = "event/init/opening";
+    public static const START_OPENING:String = "event/start/opening";
 
     public static const ACQUIRE:String = "action/acquire";
     public static const ACQUIRING:String = "state/acquiring";
     public static const SETUP_AQUIRING:String = "event/setUp/acquiring";
     public static const TEARDOWN_AQUIRING:String = "event/tearDown/acquiring";
-    public static const INIT_AQUIRING:String = "event/init/acquiring";
+    public static const START_AQUIRING:String = "event/start/acquiring";
 
     public static const EXITING_APPLICATION:String = "state/exitingApplication";
     public static const SETUP_EXITING_APPLICATION:String = "event/setUp/exitingApplication";
-    public static const INIT_EXITING_APPLICATION:String = "event/init/exitingApplication";
+    public static const START_EXITING_APPLICATION:String = "event/start/exitingApplication";
+
+    public static const SAVE:String = "action/save";
+    public static const SAVING:String = "state/saving";
+    public static const START_SAVING:String = "event/start/saving";
 
 
     public static const FSM:XML = <fsm initial={BOOTSTRAPING}>
@@ -49,12 +53,13 @@ public class StateConstant
         <state name={IDLING} entering={SETUP_IDLING} exiting={TEARDOWN_IDLING}>
 
             <transition action={OPEN} target={OPENING}/>
+            <transition action={SAVE} target={SAVING}/>
             <transition action={EXIT_APPLICATION} target={EXITING_APPLICATION}/>
 
         </state>
 
 
-        <state name={OPENING} entering={SETUP_OPENING} exiting={TEARDOWN_OPENING} changed={INIT_OPENING}>
+        <state name={OPENING} entering={SETUP_OPENING} exiting={TEARDOWN_OPENING} changed={START_OPENING}>
 
             <transition action={IDLE} target={IDLING}/>
             <transition action={IMPORT} target={IMPORTING}/>
@@ -62,8 +67,14 @@ public class StateConstant
 
         </state>
 
+        <state name={SAVING}  changed={START_SAVING}>
 
-        <state name={ACQUIRING} entering={SETUP_AQUIRING} exiting={TEARDOWN_AQUIRING} changed={INIT_AQUIRING}>
+            <transition action={IDLE} target={IDLING}/>
+
+        </state>
+
+
+        <state name={ACQUIRING} entering={SETUP_AQUIRING} exiting={TEARDOWN_AQUIRING} changed={START_AQUIRING}>
 
             <transition action={IMPORT} target={IMPORTING}/>
             <transition action={IDLE} target={IDLING}/>
@@ -76,7 +87,7 @@ public class StateConstant
 
         </state>
 
-        <state name={EXITING_APPLICATION} entering={SETUP_EXITING_APPLICATION} changed={INIT_EXITING_APPLICATION}>
+        <state name={EXITING_APPLICATION} entering={SETUP_EXITING_APPLICATION} changed={START_EXITING_APPLICATION}>
 
 
 

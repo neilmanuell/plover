@@ -1,14 +1,13 @@
 package config
 {
 import flash.events.IEventDispatcher;
-import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
 
 import plover.controller.cmds.ChangeDragControl;
 import plover.controller.cmds.EnableDrag;
 import plover.controller.cmds.acquiring.AcquireList;
 import plover.controller.cmds.acquiring.HandleListAcquired;
 import plover.controller.cmds.bootstrapping.CreateView;
+import plover.controller.cmds.changeStateToLater;
 import plover.controller.cmds.exiting.ExitApplication;
 import plover.controller.cmds.importing.FlushImageModel;
 import plover.controller.cmds.importing.HandleItemLoadComplete;
@@ -26,7 +25,6 @@ import plover.controller.cmds.state.TearDownImporting;
 import plover.controller.cmds.state.TearDownOpening;
 import plover.controller.events.ChangeDragControlEvent;
 import plover.controller.guards.OnlyIfListFileDoesNotExist;
-import plover.controller.guards.onlyIfKeyIs;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -40,6 +38,9 @@ public class ControllerConfig implements IConfig
 
     [Inject]
     public var flow:EventFlowMap;
+
+    [Inject]
+    public var dispatcher:IEventDispatcher;
 
 
 
@@ -67,13 +68,17 @@ public class ControllerConfig implements IConfig
                 .all.execute( TearDownOpening );
 
         flow
-                .on( StateConstant.INIT_OPENING, StateEvent )
+                .on( StateConstant.START_OPENING, StateEvent )
                 .all.execute( BrowseDialogue );
 
         flow
                 .on( StateConstant.SETUP_IMPORTING, StateEvent )
                 .all.onApproval( OnlyIfListFileDoesNotExist )
                 .execute( RetrieveImageFiles, WriteToListFile );
+
+        flow
+                .on( StateConstant.START_SAVING, StateEvent )
+                .all.execute( WriteToListFile, changeStateToLater(StateConstant.IDLE, dispatcher) );
 
 
         flow
@@ -94,15 +99,13 @@ public class ControllerConfig implements IConfig
                 .all.execute( TearDownAcquiring );
 
         flow
-                .on( StateConstant.INIT_AQUIRING, StateEvent )
+                .on( StateConstant.START_AQUIRING, StateEvent )
                 .all.execute( AcquireList, HandleListAcquired );
 
 
         flow
-                .on( StateConstant.INIT_EXITING_APPLICATION, StateEvent )
+                .on( StateConstant.START_EXITING_APPLICATION, StateEvent )
                 .all.execute( ExitApplication );
-
-
 
 
         /*
@@ -178,8 +181,6 @@ public class ControllerConfig implements IConfig
 
 
     }
-
-
 
 
 }

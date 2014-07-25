@@ -20,6 +20,7 @@
     </fx:Declarations>
     <s:HGroup width="100%">
         <s:Button id="importImages" label="import"/>
+        <s:Button id="saveBook" label="save"/>
         <components:DragControlCombo selectedIndex="0"/>
         <mx:ProgressBar mode="manual" label="" labelPlacement="center" width="100%" height="22"/>
         <s:Button id="exitApp" label="exit"/>
