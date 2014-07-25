@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- http://blog.flexexamples.com/2009/09/29/displaying-images-in-a-spark-list-control-using-a-custom-item-renderer-in-flex-4/ -->
+<s:ItemRenderer name="ThumbItemRenderer"
+                xmlns:fx="http://ns.adobe.com/mxml/2009"
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                focusEnabled="false"
+                width="200"
+                height="150">
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="hovered"/>
+        <s:State name="selected"/>
+        <s:State name="normalAndShowsCaret"/>
+        <s:State name="hoveredAndShowsCaret"/>
+        <s:State name="selectedAndShowsCaret"/>
+    </s:states>
+
+    <s:BitmapImage source="{data.bmp}" width="100%" height="100%"/>
+
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="black"
+                          alpha="0"
+                          alpha.hovered="0.4"
+                          alpha.selected="0.4"
+                          alpha.selectedAndShowsCaret="0.4"/>
+        </s:fill>
+    </s:Rect>
+
+    <s:Label color="white"
+             maxDisplayedLines="1"
+             backgroundAlpha="0.3"
+             backgroundColor="black"
+             width="100%"
+             bottom="0"
+             paddingLeft="5" paddingRight="5"
+             paddingTop="5" paddingBottom="5"
+             includeIn="hovered,hoveredAndShowsCaret,selected,selectedAndShowsCaret">
+        <s:text>{data.file.name}</s:text>
+    </s:Label>
+
+</s:ItemRenderer>

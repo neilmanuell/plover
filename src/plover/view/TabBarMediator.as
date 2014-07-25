@@ -4,7 +4,9 @@ import flash.events.Event;
 
 import mx.collections.ArrayCollection;
 
+import plover.controller.constants.ScreenInfo;
 import plover.controller.events.ViewEvent;
+import plover.controller.events.ViewStackEvent;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -19,20 +21,20 @@ public class TabBarMediator extends Mediator
 
     override public function initialize():void
     {
-        addContextListener(ViewEvent.ADD, onViewAdd)    ;
-        addViewListener(Event.CHANGE, onChange);
+        addContextListener( ViewEvent.ADD, onViewAdd );
+        addViewListener( Event.CHANGE, onChange );
         view.dataProvider = new ArrayCollection();
 
     }
 
-    private function onChange(event:Event):void
+    private function onChange( event:Event ):void
     {
-                                         trace("")
+        dispatch( new ViewStackEvent( view.selectedItem as ScreenInfo ) );
     }
 
-    private function onViewAdd(event:ViewEvent):void
+    private function onViewAdd( event:ViewEvent ):void
     {
-       view.dataProvider.addItem(event.screen);
+        view.dataProvider.addItem( event.screen );
     }
 
 

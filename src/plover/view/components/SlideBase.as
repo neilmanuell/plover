@@ -1,6 +1,10 @@
 package plover.view.components
 {
+import flash.display.BitmapData;
+
 import mx.containers.Canvas;
+
+import plover.model.slides.SlideCarriage;
 
 import spark.components.Image;
 
@@ -15,6 +19,11 @@ public class SlideBase extends Canvas
         this.mouseChildren = false;
     }
 
+    public function get slideData():SlideCarriage
+    {
+        return data as SlideCarriage
+    }
+
 
     public function get selectedIndex():int
     {
@@ -23,8 +32,14 @@ public class SlideBase extends Canvas
 
     public function set selectedIndex( value:int ):void
     {
-        bottomImage.source = data.selectedItem;
-        topImage.source = data.getItemAt( value + 1 );
+        const bm1:BitmapData = bottomImage.bitmapData;
+        const bm2:BitmapData = topImage.bitmapData;
+
+        bottomImage.source = slideData.selectedItem;
+        topImage.source = slideData.getItemAt( value + 1 );
+
+        bm1.dispose();
+        bm2.dispose();
 
     }
 

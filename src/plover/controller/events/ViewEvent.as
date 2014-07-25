@@ -3,17 +3,19 @@ package plover.controller.events
 import flash.display.DisplayObject;
 import flash.events.Event;
 
+import mx.core.INavigatorContent;
+
 import plover.controller.constants.ScreenInfo;
 
 public class ViewEvent extends Event
 {
     public static const ADD:String = "ViewEvent.ADD";
     private var _screen:ScreenInfo;
-    private var _view:DisplayObject;
+    private var _view:INavigatorContent;
 
-    public function ViewEvent( type:String, screen:ScreenInfo, view:DisplayObject ):void
+    public function ViewEvent( eventType:String, screen:ScreenInfo, view:INavigatorContent ):void
     {
-        super( type );
+        super( eventType );
         _screen = screen;
         _view = view;
 
@@ -30,7 +32,7 @@ public class ViewEvent extends Event
         return _screen;
     }
 
-    public function get view():DisplayObject
+    public function get view():INavigatorContent
     {
         return _view;
     }

@@ -3,17 +3,25 @@ package plover.model.slides
 import flash.display.BitmapData;
 import flash.filesystem.File;
 
+import mx.collections.ArrayCollection;
+import mx.collections.IList;
+
 import tools.loaderservice.data.NULL_BITMAP_DATA;
 import tools.mouse.DragControllerClient;
 
 use namespace NULL_BITMAP_DATA;
 
-public class SlideCarriage  implements DragControllerClient
+public class SlideCarriage implements DragControllerClient
 {
 
-    private const _mappings:Vector.<Mapping> = new <Mapping>[];
+    private const _mappings:ArrayCollection = new ArrayCollection();
 
     private var _selectedItem:BitmapData;
+
+    public function get dataProvider():IList
+    {
+       return _mappings;
+    }
 
     [Bindable]
     public function get selectedItem():BitmapData
@@ -39,12 +47,12 @@ public class SlideCarriage  implements DragControllerClient
         if ( value == _selectedIndex )return;
         else if ( value == -1 )
         {
-            _selectedIndex = value
+            _selectedIndex = value ;
             return;
         }
         else if ( value < 0 || value > _mappings.length - 1 )return;
         _selectedIndex = value;
-        selectedItem = _mappings[_selectedIndex].bmp;
+        selectedItem = (_mappings[_selectedIndex] as Mapping).bmp;
     }
 
     private var _numberOfChildren:int;
@@ -80,45 +88,27 @@ public class SlideCarriage  implements DragControllerClient
         return _mappings.length;
     }
 
-    public function sort():void
-    {
-        _mappings.sort( function orderLastName( a:Mapping, b:Mapping ):int
-        {
-            const fileA:File = a.file;
-            const fileB:File = b.file;
-
-            if ( fileA.name > fileB.name )
-            {
-                return 1
-            }
-
-            else if ( fileA.name < fileB.name )
-            {
-                return -1
-            }
-            return 0
-        } )
-    }
 
     public function getItemAt( index:int ):BitmapData
     {
-        return  _mappings[index].bmp;
+        return  (_mappings[index] as Mapping).bmp;
     }
 
     public function add( file:File, bmp:BitmapData ):void
     {
-        _mappings.push( new Mapping( file, bmp ) );
+        _mappings.addItem( new Mapping( file, bmp ) );
         numberOfChildren = _mappings.length;
     }
 
     public function flush():void
     {
-        _mappings.forEach( function ( item:Mapping, index:int, v:Vector.<Mapping> ):void
+        const len:int = _mappings.length;
+        for ( var i:int = 0; i < len; i++ )
         {
-            item.bmp.dispose();
-        } );
-
-        _mappings.length = 0;
+            var mapping:Mapping = _mappings.getItemAt( i ) as Mapping;
+            mapping.dispose()
+        }
+        _mappings.removeAll();
         selectedItem = NULL_BITMAP_DATA;
 
     }
@@ -131,13 +121,22 @@ import flash.filesystem.File;
 class Mapping
 {
     public var file:File;
-    public var bmp:BitmapData;
+    private var _bmp:BitmapData;
 
     public function Mapping( file:File, bmp:BitmapData ):void
     {
         this.file = file;
-        this.bmp = bmp;
+        _bmp = bmp;
     }
 
 
+    public function get bmp():BitmapData
+    {
+        return _bmp.clone();
+    }
+
+    public function dispose():void
+    {
+        _bmp.dispose();
+    }
 }
