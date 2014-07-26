@@ -51,6 +51,7 @@ public class FileModel
 
     public function parseList( list:Array ):void
     {
+
         _imageFiles = new <File>[];
         list.forEach( function ( item:String, index:int, a:Array ):void
         {
@@ -64,7 +65,10 @@ public class FileModel
         _list = _parent.resolvePath( FileName.PLOVER_LIST_FILE );
     }
 
-
+    public function flush():void
+    {
+        _imageURLs = null;
+    }
 
 
     public function get listExists():Boolean

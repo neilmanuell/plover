@@ -35,9 +35,11 @@ public class SlideBase extends Canvas
         const bm1:BitmapData = bottomImage.bitmapData;
         const bm2:BitmapData = topImage.bitmapData;
 
+       if( value != -1) {
+           bottomImage.source = slideData.selectedItem;
+           topImage.source = slideData.getItemAt( value + 1 );
+       }
 
-        bottomImage.source = slideData.selectedItem;
-        topImage.source = slideData.getItemAt( value + 1 );
 
 
         bm1.dispose();

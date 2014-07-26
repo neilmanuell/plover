@@ -1,18 +1,23 @@
 package plover.controller.cmds.importing
 {
+import plover.model.files.FileModel;
 import plover.model.slides.SlideCarriage;
 
 public class FlushImageModel
 {
 
     [Inject]
-    public var model:SlideCarriage;
+    public var slides:SlideCarriage;
+
+    [Inject]
+    public var files:FileModel;
 
 
     public function execute():void
     {
-        model.flush();
-        model.selectedIndex = -1;
+        slides.flush();
+        files.flush();
+
     }
 }
 }

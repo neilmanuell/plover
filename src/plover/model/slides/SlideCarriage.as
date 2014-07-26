@@ -1,7 +1,6 @@
 package plover.model.slides
 {
 import flash.display.BitmapData;
-import flash.events.EventDispatcher;
 import flash.filesystem.File;
 
 import mx.collections.ArrayCollection;
@@ -70,6 +69,7 @@ public class SlideCarriage implements DragControllerClient
         else if ( value == -1 )
         {
             _selectedIndex = value;
+            selectedItem = NULL_BITMAP_DATA;
             return;
         }
         else if ( value < 0 || value > _mappings.length - 1 )return;
@@ -125,13 +125,9 @@ public class SlideCarriage implements DragControllerClient
     public function flush():void
     {
         const len:int = _mappings.length;
-        for ( var i:int = 0; i < len; i++ )
-        {
-            var mapping:Mapping = _mappings.getItemAt( i ) as Mapping;
-            mapping.dispose()
-        }
         _mappings.removeAll();
-        selectedItem = NULL_BITMAP_DATA;
+        selectedIndex = -1;
+        //selectedItem = NULL_BITMAP_DATA;
 
     }
 }
@@ -141,9 +137,7 @@ import flash.display.BitmapData;
 import flash.events.EventDispatcher;
 import flash.filesystem.File;
 
-import tools.loaderservice.data.NULL_BITMAP_DATA;
-
-class Mapping   extends EventDispatcher
+class Mapping extends EventDispatcher
 {
     public var file:File;
     private var _bmp:BitmapData;
@@ -157,21 +151,7 @@ class Mapping   extends EventDispatcher
 
     public function get bmp():BitmapData
     {
-        var out:BitmapData = NULL_BITMAP_DATA.clone();
-        try
-        {
-            out = _bmp.clone();
-
-        }
-        catch ( error:Error )
-        {
-            trace( "" )
-        }
-        finally
-        {
-            return out;
-        }
-        return   out;
+        return _bmp;
     }
 
     public function dispose():void
