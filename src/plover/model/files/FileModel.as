@@ -22,7 +22,7 @@ public class FileModel
         return _list;
     }
 
-    private var _parent:File;
+    private var _parent:File = File.documentsDirectory;
 
     public function get parent():File
     {
@@ -63,6 +63,7 @@ public class FileModel
     {
         _parent = parent;
         _list = _parent.resolvePath( FileName.PLOVER_LIST_FILE );
+        flush();
     }
 
     public function flush():void

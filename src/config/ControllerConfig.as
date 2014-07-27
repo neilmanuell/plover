@@ -30,7 +30,7 @@ public class ControllerConfig implements IConfig
 
         flow
                 .on( ChangeDragControlEvent.CHANGE, ChangeDragControlEvent )
-                .all.execute( ChangeDragControl );
+                .always.execute( ChangeDragControl );
 
 
 

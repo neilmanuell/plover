@@ -6,7 +6,7 @@ import plover.controller.events.ButtonClickEvent;
 
 import statemachine.flow.api.EventFlowMap;
 
-public class TearDownIdling
+public class RemoveInputControl
 {
     [Inject]
     public var flow:EventFlowMap;

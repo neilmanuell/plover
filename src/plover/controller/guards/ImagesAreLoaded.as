@@ -2,7 +2,7 @@ package plover.controller.guards
 {
 import plover.model.slides.SlideCarriage;
 
-public class OnlyIfImagesAreLoaded
+public class ImagesAreLoaded
 {
     [Inject]
     public var model:SlideCarriage;

@@ -1,8 +1,9 @@
-package config
+package config.state
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.cmds.browsing.BrowseDialogue;
+import plover.controller.cmds.saving.WriteToListFile;
+import plover.controller.cmds.thenChangeStateTo;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -11,7 +12,7 @@ import statemachine.flow.api.EventFlowMap;
 
 import tools.statemachine.StateEvent;
 
-public class BrowsingConfig implements IConfig
+public class SavingConfig implements IConfig
 {
 
     [Inject]
@@ -20,11 +21,14 @@ public class BrowsingConfig implements IConfig
     [Inject]
     public var dispatcher:IEventDispatcher;
 
+
     public function configure():void
     {
+
         flow
-                .on( StateConstant.START_BROWSING, StateEvent )
-                .all.execute( BrowseDialogue );
+                .on( StateConstant.START_SAVING, StateEvent )
+                .always.execute( WriteToListFile, thenChangeStateTo( StateConstant.IDLE, dispatcher )  )
+
 
     }
 

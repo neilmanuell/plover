@@ -7,13 +7,13 @@ import flash.ui.Keyboard;
 import plover.controller.cmds.changeStateTo;
 import plover.controller.constants.ButtonNames;
 import plover.controller.events.ButtonClickEvent;
-import plover.controller.guards.onlyIfButtonNameIs;
-import plover.controller.guards.onlyIfKeyIs;
+import plover.controller.guards.buttonNameIs;
+import plover.controller.guards.keyIs;
 import plover.controller.state.StateConstant;
 
 import statemachine.flow.api.EventFlowMap;
 
-public class SetupIdling
+public class AddInputControl
 {
     [Inject]
     public var flow:EventFlowMap;
@@ -25,23 +25,24 @@ public class SetupIdling
     {
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
-                .all.onApproval( onlyIfButtonNameIs( ButtonNames.IMPORT_IMAGES ) )
-                .execute( changeStateTo( StateConstant.BROWSE, dispatcher ) );
+                .always.execute( changeStateTo( StateConstant.BROWSE, dispatcher ) )
+                .butOnlyIf( buttonNameIs( ButtonNames.IMPORT_IMAGES ) );
 
         flow
                 .on( KeyboardEvent.KEY_UP, KeyboardEvent )
-                .all.onApproval( onlyIfKeyIs( Keyboard.I, true ) )
-                .execute( changeStateTo( StateConstant.BROWSE, dispatcher ) );
+                .always.execute( changeStateTo( StateConstant.BROWSE, dispatcher ) )
+                .butOnlyIf( keyIs( Keyboard.I, true ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
-                .all.onApproval( onlyIfButtonNameIs( ButtonNames.EXIT_APP ) )
-                .execute( changeStateTo( StateConstant.EXIT_APPLICATION, dispatcher ) );
+                .always.execute( changeStateTo( StateConstant.EXIT_APPLICATION, dispatcher ) )
+                .butOnlyIf( buttonNameIs( ButtonNames.EXIT_APP ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
-                .all.onApproval( onlyIfButtonNameIs( ButtonNames.SAVE ) )
-                .execute( changeStateTo( StateConstant.SAVE, dispatcher )  );
+                .always.execute( changeStateTo( StateConstant.SAVE, dispatcher ) )
+                .butOnlyIf( buttonNameIs( ButtonNames.SAVE ) )
+        ;
 
 
     }

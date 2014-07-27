@@ -2,7 +2,7 @@ package plover.controller.guards
 {
 import plover.model.files.FileModel;
 
-public class OnlyIfListFileDoesNotExist
+public class ListFileDoesNotExist
 {
     [Inject]
     public var model:FileModel;

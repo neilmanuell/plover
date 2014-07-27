@@ -6,7 +6,7 @@ import robotlegs.bender.framework.api.IInjector;
 
 import tools.statemachine.StateEvent;
 
-public function onQueueCompleteChangeStateTo( action:String, injector:IInjector ):Function
+public function onLoadQueueCompleteChangeStateTo( action:String, injector:IInjector ):Function
 {
     return function ( event:StateEvent ):void
     {

@@ -1,11 +1,8 @@
-package config
+package config.state
 {
-import flash.events.IEventDispatcher;
-
-import plover.controller.cmds.onQueueCompleteChangeStateTo;
+import plover.controller.cmds.onLoadQueueCompleteChangeStateTo;
 import plover.controller.cmds.opening.AcquireList;
 import plover.controller.cmds.state.RemoveAllLoaderServiceListeners;
-import plover.controller.cmds.state.TearDownAcquiring;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -30,12 +27,11 @@ public class OpeningConfig implements IConfig
 
         flow
                 .on( StateConstant.TEARDOWN_OPENING, StateEvent )
-                .all.execute( RemoveAllLoaderServiceListeners );
+                .always.execute( RemoveAllLoaderServiceListeners );
 
         flow
                 .on( StateConstant.START_OPENING, StateEvent )
-                .all.execute( AcquireList )
-                .and.all.execute( onQueueCompleteChangeStateTo(StateConstant.IMPORT, injector) );
+                .always.execute( AcquireList, onLoadQueueCompleteChangeStateTo(StateConstant.IMPORT, injector) );
 
 
     }

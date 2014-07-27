@@ -29,6 +29,10 @@ public class StateConstant
     public static const TEARDOWN_BROWSING:String = "event/tearDown/browsing";
     public static const START_BROWSING:String = "event/start/browsing";
 
+    public static const POST_BROWSE:String = "action/postBrowse";
+    public static const POST_BROWSING:String = "state/postBrowsing";
+    public static const START_POST_BROWSING:String = "event/start/postBrowsing";
+
     public static const OPEN:String = "action/open";
     public static const OPENING:String = "state/opening";
     public static const SETUP_OPENING:String = "event/setUp/opening";
@@ -42,6 +46,10 @@ public class StateConstant
     public static const SAVE:String = "action/save";
     public static const SAVING:String = "state/saving";
     public static const START_SAVING:String = "event/start/saving";
+
+    public static const BROWSE_FOR_EXPORT:String = "action/browseForExport";
+    public static const BROWSING_FOR_EXPORT:String = "state/browsingForExport";
+    public static const START_BROWSING_FOR_EXPORT:String = "event/start/browsingForExport";
 
     public static const EXPORT:String = "action/export";
     public static const EXPORTING:String = "state/exporting";
@@ -63,8 +71,11 @@ public class StateConstant
             <transition action={EXIT_APPLICATION} target={EXITING_APPLICATION}/>
         </state>
 
+        <state name={BROWSING} changed={START_BROWSING}>
+            <transition action={POST_BROWSE} target={POST_BROWSING}/>
+        </state>
 
-        <state name={BROWSING} entering={SETUP_BROWSING} exiting={TEARDOWN_BROWSING} changed={START_BROWSING}>
+        <state name={POST_BROWSING} changed={START_POST_BROWSING}>
             <transition action={IDLE} target={IDLING}/>
             <transition action={OPEN} target={OPENING}/>
             <transition action={IMPORT} target={IMPORTING}/>
@@ -72,6 +83,11 @@ public class StateConstant
 
         <state name={SAVING}  changed={START_SAVING}>
             <transition action={IDLE} target={IDLING}/>
+        </state>
+
+        <state name={BROWSING_FOR_EXPORT} changed={START_BROWSING_FOR_EXPORT}>
+            <transition action={IDLE} target={IDLING}/>
+            <transition action={EXPORT} target={EXPORTING}/>
         </state>
 
         <state name={EXPORTING} entering={SETUP_EXPORTING}  changed={START_EXPORTING}>

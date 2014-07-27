@@ -1,5 +1,14 @@
 package config
 {
+import config.state.BootstrapingConfig;
+import config.state.BrowsingConfig;
+import config.state.ExitingConfig;
+import config.state.ExportingConfig;
+import config.state.IdlingConfig;
+import config.state.ImportingConfig;
+import config.state.OpeningConfig;
+import config.state.SavingConfig;
+
 import flash.events.IEventDispatcher;
 
 import plover.controller.state.StateConstant;
@@ -41,6 +50,7 @@ public class StateMachineConfig implements IConfig
                 IdlingConfig,
                 ImportingConfig,
                 BrowsingConfig,
+                ExportingConfig,
                 SavingConfig
         )
     }

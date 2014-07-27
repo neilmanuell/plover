@@ -2,12 +2,9 @@ package plover.controller.cmds.browsing
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.state.StateConstant;
 import plover.model.files.FileModel;
 import plover.service.file.BrowseFileService;
 import plover.service.file.ImageServiceResults;
-
-import tools.statemachine.StateEvent;
 
 public class BrowseDialogue
 {
@@ -24,16 +21,16 @@ public class BrowseDialogue
     {
         service.browse().addOnce( function ( result:ImageServiceResults ):void
                 {
-                    var action:String = StateConstant.IDLE;
+                    //var action:String = StateConstant.IDLE;
 
                     if ( result.success )
                     {
                         model.setParentFile( result.file );
-                        action = ( model.listExists )
-                                ? StateConstant.OPEN
-                                : StateConstant.IMPORT
+                        /* action = ( model.listExists )
+                         ? StateConstant.OPEN
+                         : StateConstant.IMPORT*/
                     }
-                    dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) );
+                    //dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) );
                 }
         );
     }

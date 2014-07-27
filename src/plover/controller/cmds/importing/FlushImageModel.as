@@ -16,8 +16,6 @@ public class FlushImageModel
     public function execute():void
     {
         slides.flush();
-        files.flush();
-
     }
 }
 }
