@@ -1,4 +1,4 @@
-package plover.controller.cmds.opening
+package plover.controller.cmds.browsing
 {
 import flash.events.IEventDispatcher;
 
@@ -30,14 +30,12 @@ public class BrowseDialogue
                     {
                         model.setParentFile( result.file );
                         action = ( model.listExists )
-                                ? StateConstant.ACQUIRE
+                                ? StateConstant.OPEN
                                 : StateConstant.IMPORT
                     }
                     dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) );
-
                 }
-        )
-        ;
+        );
     }
 }
 }

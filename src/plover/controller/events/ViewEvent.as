@@ -1,6 +1,5 @@
 package plover.controller.events
 {
-import flash.display.DisplayObject;
 import flash.events.Event;
 
 import mx.core.INavigatorContent;

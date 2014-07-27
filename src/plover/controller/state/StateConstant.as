@@ -17,19 +17,23 @@ public class StateConstant
     public static const IMPORTING:String = "state/importing";
     public static const SETUP_IMPORTING:String = "event/setUp/importing";
     public static const TEARDOWN_IMPORTING:String = "event/tearDown/importing";
-    public static const INIT_IMPORTING:String = "event/init/importing";
+    public static const START_IMPORTING:String = "event/start/importing";
+
+    public static const POST_IMPORT:String = "action/postImport";
+    public static const POST_IMPORTING:String = "state/postImporting";
+    public static const START_POST_IMPORTING:String = "event/start/postImporting";
+
+    public static const BROWSE:String = "action/browse";
+    public static const BROWSING:String = "state/browsing";
+    public static const SETUP_BROWSING:String = "event/setUp/browsing";
+    public static const TEARDOWN_BROWSING:String = "event/tearDown/browsing";
+    public static const START_BROWSING:String = "event/start/browsing";
 
     public static const OPEN:String = "action/open";
     public static const OPENING:String = "state/opening";
     public static const SETUP_OPENING:String = "event/setUp/opening";
     public static const TEARDOWN_OPENING:String = "event/tearDown/opening";
     public static const START_OPENING:String = "event/start/opening";
-
-    public static const ACQUIRE:String = "action/acquire";
-    public static const ACQUIRING:String = "state/acquiring";
-    public static const SETUP_AQUIRING:String = "event/setUp/acquiring";
-    public static const TEARDOWN_AQUIRING:String = "event/tearDown/acquiring";
-    public static const START_AQUIRING:String = "event/start/acquiring";
 
     public static const EXITING_APPLICATION:String = "state/exitingApplication";
     public static const SETUP_EXITING_APPLICATION:String = "event/setUp/exitingApplication";
@@ -39,57 +43,56 @@ public class StateConstant
     public static const SAVING:String = "state/saving";
     public static const START_SAVING:String = "event/start/saving";
 
+    public static const EXPORT:String = "action/export";
+    public static const EXPORTING:String = "state/exporting";
+    public static const SETUP_EXPORTING:String = "state/setUp/exporting";
+    public static const START_EXPORTING:String = "event/start/exporting";
+
 
     public static const FSM:XML = <fsm initial={BOOTSTRAPING}>
 
         <!-- THE INITIAL STATE -->
         <state name={BOOTSTRAPING} exiting={BOOTSTRAP}>
-
-            <transition action={START_APPLICATION}
-            target={IDLING}/>
-
+            <transition action={START_APPLICATION} target={IDLING}/>
         </state>
 
         <state name={IDLING} entering={SETUP_IDLING} exiting={TEARDOWN_IDLING}>
-
-            <transition action={OPEN} target={OPENING}/>
+            <transition action={BROWSE} target={BROWSING}/>
             <transition action={SAVE} target={SAVING}/>
+            <transition action={EXPORT} target={EXPORTING}/>
             <transition action={EXIT_APPLICATION} target={EXITING_APPLICATION}/>
-
         </state>
 
 
-        <state name={OPENING} entering={SETUP_OPENING} exiting={TEARDOWN_OPENING} changed={START_OPENING}>
-
+        <state name={BROWSING} entering={SETUP_BROWSING} exiting={TEARDOWN_BROWSING} changed={START_BROWSING}>
             <transition action={IDLE} target={IDLING}/>
+            <transition action={OPEN} target={OPENING}/>
             <transition action={IMPORT} target={IMPORTING}/>
-            <transition action={ACQUIRE} target={ACQUIRING}/>
-
         </state>
 
         <state name={SAVING}  changed={START_SAVING}>
-
             <transition action={IDLE} target={IDLING}/>
-
         </state>
 
+        <state name={EXPORTING} entering={SETUP_EXPORTING}  changed={START_EXPORTING}>
+            <transition action={IDLE} target={IDLING}/>
+        </state>
 
-        <state name={ACQUIRING} entering={SETUP_AQUIRING} exiting={TEARDOWN_AQUIRING} changed={START_AQUIRING}>
-
+        <state name={OPENING} entering={SETUP_OPENING} exiting={TEARDOWN_OPENING} changed={START_OPENING}>
             <transition action={IMPORT} target={IMPORTING}/>
             <transition action={IDLE} target={IDLING}/>
-
         </state>
 
-        <state name={IMPORTING} entering={SETUP_IMPORTING} exiting={TEARDOWN_IMPORTING} changed={INIT_IMPORTING}>
+        <state name={IMPORTING} entering={SETUP_IMPORTING} exiting={TEARDOWN_IMPORTING} changed={START_IMPORTING}>
+            <transition action={POST_IMPORT} target={POST_IMPORTING}/>
+        </state>
 
+        <state name={POST_IMPORTING}  changed={START_POST_IMPORTING}>
             <transition action={IDLE} target={IDLING}/>
-
+            <transition action={SAVE} target={SAVING}/>
         </state>
 
         <state name={EXITING_APPLICATION} entering={SETUP_EXITING_APPLICATION} changed={START_EXITING_APPLICATION}>
-
-
 
         </state>
     </fsm>;

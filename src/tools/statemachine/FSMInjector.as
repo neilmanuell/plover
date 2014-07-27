@@ -6,10 +6,9 @@
  */
 package tools.statemachine
 {
-	import flash.events.IEventDispatcher;
-	
+import flash.events.IEventDispatcher;
 
-	public class FSMInjector
+public class FSMInjector
 	{
 		[Inject(name='mvcsEventDispatcher')]
 		public var eventDispatcher:IEventDispatcher;

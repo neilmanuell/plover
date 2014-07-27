@@ -1,4 +1,4 @@
-package plover.controller.cmds.acquiring
+package plover.controller.cmds.opening
 {
 import flash.events.IEventDispatcher;
 
@@ -22,7 +22,7 @@ public class HandleListAcquired
     {
 
         loader.on.queueComplete.addOnce( function ():void
-        {
+        {      // todo: branch here  go to save
               dispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, StateConstant.IMPORT))
         } );
 

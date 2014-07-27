@@ -3,7 +3,6 @@ package plover.view
 import flash.events.Event;
 
 import plover.controller.events.ChangeDragControlEvent;
-
 import plover.view.components.DragControlCombo;
 
 import robotlegs.bender.bundles.mvcs.Mediator;

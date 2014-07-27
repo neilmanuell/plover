@@ -6,9 +6,9 @@
  */
 package tools.statemachine
 {
-	import flash.events.Event;
+import flash.events.Event;
 
-	public class StateEvent extends Event
+public class StateEvent extends Event
 	{
 		public static const CHANGED:String = "changed";
 		public static const ACTION:String = "action";
@@ -16,7 +16,7 @@ package tools.statemachine
 		
 		public var action:String;
 	    public var data:Object;
-		
+
 		public function StateEvent(type:String, action:String = null, data:Object = null)
 		{
 			this.action = action;

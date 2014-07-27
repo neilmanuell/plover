@@ -1,12 +1,10 @@
 package plover.controller.cmds.state
 {
-import plover.service.image.ImportEvent;
-
 import statemachine.flow.api.EventFlowMap;
 
 import tools.loaderservice.api.LoaderService;
 
-public class TearDownImporting
+public class RemoveAllLoaderServiceListeners
 {
     [Inject]
     public var flow:EventFlowMap;
@@ -16,7 +14,6 @@ public class TearDownImporting
 
     public function execute():void
     {
-        flow.remove( ImportEvent.LOAD_REQUEST );
         service.on.removeAll();
     }
 }

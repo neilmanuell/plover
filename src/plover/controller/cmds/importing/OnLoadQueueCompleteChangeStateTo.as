@@ -2,17 +2,11 @@ package plover.controller.cmds.importing
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.state.StateConstant;
-import plover.model.slides.SlideCarriage;
-
 import tools.loaderservice.api.LoaderService;
 import tools.statemachine.StateEvent;
 
-public class HandleQueueComplete
+public class OnLoadQueueCompleteChangeStateTo
 {
-    [Inject]
-    public var model:SlideCarriage;
-
     [Inject]
     public var dispatcher:IEventDispatcher;
 
@@ -20,12 +14,18 @@ public class HandleQueueComplete
     public var service:LoaderService;
 
 
+    public function OnLoadQueueCompleteChangeStateTo( action:String )
+    {
+        _action = action;
+    }
+
+    private var _action:String;
+
     public function execute():void
     {
         service.on.queueComplete.addOnce( function ():void
         {
-            dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, StateConstant.IDLE ) )
-
+            dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, _action ) )         ;
         } );
     }
 }

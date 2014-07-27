@@ -6,9 +6,9 @@
  */
 package tools.statemachine
 {
-	import flash.events.IEventDispatcher;
-	
-	public class StateMachine
+import flash.events.IEventDispatcher;
+
+public class StateMachine
 	{
 		public var eventDispatcher:IEventDispatcher;
 		
@@ -109,7 +109,7 @@ package tools.statemachine
 			}
 			
 			// Enter the next State 
-			if ( nextState.entering ) eventDispatcher.dispatchEvent( new StateEvent( nextState.entering, null, data )); 
+			if ( nextState.entering ) eventDispatcher.dispatchEvent( new StateEvent( nextState.entering, null, data ));
 			
 			
 			// Check to see whether the entering guard has been canceled
@@ -122,7 +122,7 @@ package tools.statemachine
 			_currentState = nextState;
 			
 			// Send the notification configured to be sent when this specific state becomes current 
-			if ( nextState.changed ) eventDispatcher.dispatchEvent( new StateEvent( _currentState.changed, null, data ));  
+			if ( nextState.changed ) eventDispatcher.dispatchEvent( new StateEvent( _currentState.changed, null, data ));
 
 			// Notify the app generally that the state changed and what the new state is 
 			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.CHANGED, _currentState.name));

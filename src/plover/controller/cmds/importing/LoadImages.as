@@ -1,7 +1,6 @@
 package plover.controller.cmds.importing
 {
 import plover.model.files.FileModel;
-import plover.service.image.ImportEvent;
 
 import tools.loaderservice.api.LoaderService;
 

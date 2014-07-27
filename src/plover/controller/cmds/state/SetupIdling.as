@@ -5,11 +5,8 @@ import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
 
 import plover.controller.cmds.changeStateTo;
-import plover.controller.cmds.importing.FlushImageModel;
 import plover.controller.constants.ButtonNames;
-import plover.controller.constants.ScreenInfo;
 import plover.controller.events.ButtonClickEvent;
-import plover.controller.events.ViewStackEvent;
 import plover.controller.guards.onlyIfButtonNameIs;
 import plover.controller.guards.onlyIfKeyIs;
 import plover.controller.state.StateConstant;
@@ -29,12 +26,12 @@ public class SetupIdling
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
                 .all.onApproval( onlyIfButtonNameIs( ButtonNames.IMPORT_IMAGES ) )
-                .execute( changeStateTo( StateConstant.OPEN, dispatcher ) );
+                .execute( changeStateTo( StateConstant.BROWSE, dispatcher ) );
 
         flow
                 .on( KeyboardEvent.KEY_UP, KeyboardEvent )
                 .all.onApproval( onlyIfKeyIs( Keyboard.I, true ) )
-                .execute( changeStateTo( StateConstant.OPEN, dispatcher ) );
+                .execute( changeStateTo( StateConstant.BROWSE, dispatcher ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )

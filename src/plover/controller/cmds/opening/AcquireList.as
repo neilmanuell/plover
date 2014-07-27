@@ -1,4 +1,4 @@
-package plover.controller.cmds.acquiring
+package plover.controller.cmds.opening
 {
 import plover.model.files.FileModel;
 

@@ -13,7 +13,7 @@ public class RetrieveImageFiles
 
     public function execute():void
     {
-        model.setImageFiles( service.retrieveImages( model.parent ) )
+        model.setImageFiles( service.retrieveImages( model.parent ) );
     }
 }
 }

@@ -6,7 +6,7 @@ import flash.media.SoundChannel;
 
 import tools.loaderservice.api.MP3Player;
 
-public class SimpleMP3Player implements tools.loaderservice.api.MP3Player
+public class SimpleMP3Player implements MP3Player
 {
     private var _loader:MP3Loader;
 

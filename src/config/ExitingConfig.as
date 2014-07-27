@@ -2,16 +2,17 @@ package config
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.cmds.ChangeDragControl;
-import plover.controller.events.ChangeDragControlEvent;
+import plover.controller.cmds.exiting.ExitApplication;
+import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
 
 import statemachine.flow.api.EventFlowMap;
 
+import tools.statemachine.StateEvent;
 import tools.statemachine.StateHistory;
 
-public class ControllerConfig implements IConfig
+public class ExitingConfig implements IConfig
 {
 
     [Inject]
@@ -27,10 +28,11 @@ public class ControllerConfig implements IConfig
     public function configure():void
     {
 
-
         flow
-                .on( ChangeDragControlEvent.CHANGE, ChangeDragControlEvent )
-                .all.execute( ChangeDragControl );
+                .on( StateConstant.START_EXITING_APPLICATION, StateEvent )
+                .all.execute( ExitApplication );
+
+
 
 
 

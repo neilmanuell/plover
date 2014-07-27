@@ -77,17 +77,9 @@ public class SlideCarriage implements DragControllerClient
         selectedItem = (_mappings[_selectedIndex] as Mapping).bmp;
     }
 
-    private var _numberOfChildren:int;
-
-    [Bindable]
     public function get numberOfChildren():int
     {
-        return _numberOfChildren;
-    }
-
-    public function set numberOfChildren( value:int ):void
-    {
-        _numberOfChildren = value;
+        return _mappings.length;
     }
 
     private var _remainder:Number;
@@ -95,7 +87,6 @@ public class SlideCarriage implements DragControllerClient
     [Bindable]
     public function get remainder():Number
     {
-
         return _remainder;
     }
 
@@ -104,12 +95,10 @@ public class SlideCarriage implements DragControllerClient
         _remainder = value;
     }
 
-
     public function get length():int
     {
         return _mappings.length;
     }
-
 
     public function getItemAt( index:int ):BitmapData
     {
@@ -119,7 +108,6 @@ public class SlideCarriage implements DragControllerClient
     public function add( file:File, bmp:BitmapData ):void
     {
         _mappings.addItem( new Mapping( file, bmp ) );
-        numberOfChildren = _mappings.length;
     }
 
     public function flush():void
@@ -127,8 +115,6 @@ public class SlideCarriage implements DragControllerClient
         const len:int = _mappings.length;
         _mappings.removeAll();
         selectedIndex = -1;
-        //selectedItem = NULL_BITMAP_DATA;
-
     }
 }
 }
