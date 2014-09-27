@@ -2,9 +2,9 @@ package plover.controller.cmds.browsing
 {
 import flash.events.IEventDispatcher;
 
-import plover.model.files.FileModel;
+import plover.model.files.ImportFileModel;
 import plover.service.file.BrowseFileService;
-import plover.service.file.ImageServiceResults;
+import plover.service.file.BrowseResults;
 
 import tools.statemachine.StateEvent;
 
@@ -25,7 +25,7 @@ public class OnBrowseCompleteChangeStateTo
 
     public function execute():void
     {
-        service.browseComplete.addOnce( function ( result:ImageServiceResults ):void
+        service.browseComplete.addOnce( function ( result:BrowseResults ):void
                 {
 
                     dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, _action ) );

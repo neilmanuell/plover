@@ -23,7 +23,7 @@ public class ApplicationMediator extends Mediator
 
     private function onComplete(event:FlexEvent):void
     {
-      dispatch(new  StateEvent(StateEvent.ACTION, StateConstant.START_APPLICATION) )
+      dispatch(new  StateEvent(StateEvent.ACTION, StateConstant.NEXT) )
     }
 
 

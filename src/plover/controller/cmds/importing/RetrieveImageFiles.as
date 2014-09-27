@@ -1,6 +1,6 @@
 package plover.controller.cmds.importing
 {
-import plover.model.files.FileModel;
+import plover.model.files.ImportFileModel;
 import plover.service.file.ImageFileService;
 
 public class RetrieveImageFiles
@@ -9,7 +9,7 @@ public class RetrieveImageFiles
     public var service:ImageFileService;
 
     [Inject]
-    public var model:FileModel;
+    public var model:ImportFileModel;
 
     public function execute():void
     {

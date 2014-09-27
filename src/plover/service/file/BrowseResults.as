@@ -1,11 +1,11 @@
 package plover.service.file
 {
-public class ImageServiceResults
+public class BrowseResults
 {
     public var success:Boolean;
     public var file:*;
 
-    public function ImageServiceResults( status:Boolean, file:*)
+    public function BrowseResults( status:Boolean, file:*)
     {
         this.success = status;
 

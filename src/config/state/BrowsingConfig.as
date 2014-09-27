@@ -2,7 +2,7 @@ package config.state
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.cmds.browsing.BrowseDialogue;
+import plover.controller.cmds.browsing.BrowseForOpenDialogue;
 import plover.controller.cmds.onBrowseCompleteChangeStateTo;
 import plover.controller.cmds.thenChangeStateTo;
 import plover.controller.guards.BrowsingFailed;
@@ -31,18 +31,21 @@ public class BrowsingConfig implements IConfig
     public function configure():void
     {
         flow
-                .on( StateConstant.START_BROWSING, StateEvent )
-                .always.execute( BrowseDialogue, onBrowseCompleteChangeStateTo( StateConstant.POST_BROWSE, injector ) );
+                .on( StateConstant.START_OPENING, StateEvent )
+                    .always.execute( BrowseForOpenDialogue, onBrowseCompleteChangeStateTo( StateConstant.NEXT, injector ) );
 
         flow
-                .on( StateConstant.START_POST_BROWSING, StateEvent )
-                .either.execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) ).butOnlyIf( BrowsingFailed )
-                .or.execute( thenChangeStateTo( StateConstant.OPEN, dispatcher ) ).butOnlyIf( ListFileDoesExist )
-                .or.execute( thenChangeStateTo( StateConstant.IMPORT, dispatcher ) )
-
+                .on( StateConstant.START_OPENING_REVIEW, StateEvent )
+                    .either
+                        .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
+                        .butOnlyIf( BrowsingFailed )
+                    .or
+                        .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
+                        .butOnlyIf( ListFileDoesExist )
+                    .or
+                        .execute( thenChangeStateTo( StateConstant.LOAD_IMAGES, dispatcher ) );
 
     }
-
 
 }
 }

@@ -1,6 +1,6 @@
 package plover.controller.cmds.importing
 {
-import plover.model.files.FileModel;
+import plover.model.files.ImportFileModel;
 
 import tools.loaderservice.api.LoaderService;
 
@@ -11,7 +11,7 @@ public class LoadImages
     public var service:LoaderService;
 
     [Inject]
-    public var model:FileModel;
+    public var model:ImportFileModel;
 
     public function execute():void
     {

@@ -112,8 +112,11 @@ public class SlideCarriage implements DragControllerClient
 
     public function flush():void
     {
-        const len:int = _mappings.length;
+        //const len:int = _mappings.length;
         _mappings.removeAll();
+        for each ( var mapping:Mapping in _mappings){
+            mapping.dispose();
+        }
         selectedIndex = -1;
     }
 }

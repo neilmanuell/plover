@@ -25,17 +25,17 @@ public class AddInputControl
     {
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
-                .always.execute( changeStateTo( StateConstant.BROWSE, dispatcher ) )
+                .always.execute( changeStateTo( StateConstant.OPEN, dispatcher ) )
                 .butOnlyIf( buttonNameIs( ButtonNames.IMPORT_IMAGES ) );
 
         flow
                 .on( KeyboardEvent.KEY_UP, KeyboardEvent )
-                .always.execute( changeStateTo( StateConstant.BROWSE, dispatcher ) )
+                .always.execute( changeStateTo( StateConstant.OPEN, dispatcher ) )
                 .butOnlyIf( keyIs( Keyboard.I, true ) );
 
         flow
                 .on( ButtonClickEvent.CLICK, ButtonClickEvent )
-                .always.execute( changeStateTo( StateConstant.EXIT_APPLICATION, dispatcher ) )
+                .always.execute( changeStateTo( StateConstant.QUIT, dispatcher ) )
                 .butOnlyIf( buttonNameIs( ButtonNames.EXIT_APP ) );
 
         flow

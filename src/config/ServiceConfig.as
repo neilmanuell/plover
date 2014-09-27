@@ -20,6 +20,7 @@ public class ServiceConfig implements IConfig
         injector.map( BrowseFileService ).toSingleton( BrowseImageFileService );
         injector.map( ImageFileService );
         injector.map( DataFileOutService );
+
     }
 }
 }

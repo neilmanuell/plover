@@ -39,17 +39,17 @@ public class ImportingConfig implements IConfig
     {
 
         flow
-                .on( StateConstant.START_IMPORTING, StateEvent )
+                .on( StateConstant.START_LOADING_IMAGES, StateEvent )
                 .always.execute( RetrieveImageFiles ).butOnlyIf( ListFileDoesNotExist )
-                .and.always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.POST_IMPORT, injector ) )
+                .and.always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.NEXT, injector ) )
                 .and.always.execute( FlushImageModel, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
         flow
-                .on( StateConstant.TEARDOWN_IMPORTING, StateEvent )
+                .on( StateConstant.TEARDOWN_LOADING_IMAGES, StateEvent )
                 .always.execute( ResetSlideSelectedIndex, RemoveAllLoaderServiceListeners );
 
         flow
-                .on( StateConstant.START_POST_IMPORTING, StateEvent )
+                .on( StateConstant.START_LOADING_IMAGES_REVIEW, StateEvent )
                 .either.execute( thenChangeStateTo( StateConstant.SAVE, dispatcher ) ).butOnlyIf( ListFileDoesNotExist )
                 .or.execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) );
 

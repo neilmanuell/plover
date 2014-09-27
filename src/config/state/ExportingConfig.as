@@ -40,8 +40,8 @@ public class ExportingConfig implements IConfig
 
         flow
                 .on( StateConstant.START_EXPORTING, StateEvent )
-                .always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.POST_IMPORT, injector ) )
-                .and.always.execute( FlushImageModel, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
+                    .always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.NEXT, injector ) )
+                    .and.always.execute( FlushImageModel, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
 
     }

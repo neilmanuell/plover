@@ -23,7 +23,7 @@ public class HandleListAcquired
 
         loader.on.queueComplete.addOnce( function ():void
         {      // todo: branch here  go to save
-              dispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, StateConstant.IMPORT))
+              dispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, StateConstant.LOAD_IMAGES))
         } );
 
     }

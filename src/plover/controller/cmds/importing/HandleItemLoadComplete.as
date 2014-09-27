@@ -1,9 +1,11 @@
 package plover.controller.cmds.importing
 {
 import flash.display.BitmapData;
+import flash.system.System;
 
-import plover.model.files.FileModel;
+import plover.model.files.ImportFileModel;
 import plover.model.slides.SlideCarriage;
+import plover.service.memory.BitmapMemoryModel;
 import plover.utils.bmp.limitBitmapDataSize;
 
 import tools.loaderservice.api.BitmapDataProvider;
@@ -21,15 +23,22 @@ public class HandleItemLoadComplete
     public var provider:BitmapDataProvider;
 
     [Inject]
-    public var event:FileModel;
+    public var files:ImportFileModel;
+
+    [Inject]
+    public var memory:BitmapMemoryModel;
 
 
     public function execute():void
     {
+
         service.on.itemComplete.add( function ( url:String ):void
         {
             const bmp:BitmapData = provider.getBitmapData( url );
-            model.add( event.getFileFromURL( url ), limitBitmapDataSize( bmp, 1600, 1200 ) );
+
+            const resizedBmp:BitmapData =  memory.resize(bmp, files.length);
+            model.add( files.getFileFromURL( url ), resizedBmp );      //bmp, 1600, 1200
+
         } );
 
     }

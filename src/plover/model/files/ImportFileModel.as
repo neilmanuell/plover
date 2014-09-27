@@ -5,10 +5,15 @@ import flash.filesystem.File;
 import plover.controller.constants.FileName;
 import plover.utils.files.getURLSFromFiles;
 
-public class FileModel
+public class ImportFileModel
 {
     private var _imageFiles:Vector.<File>;
     private var _imageURLs:Array;
+
+    public function get length():int
+    {
+       return _imageFiles.length;
+    }
 
     public function get imageURLs():Array
     {

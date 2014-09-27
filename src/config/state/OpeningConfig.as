@@ -26,12 +26,12 @@ public class OpeningConfig implements IConfig
     {
 
         flow
-                .on( StateConstant.TEARDOWN_OPENING, StateEvent )
+                .on( StateConstant.TEARDOWN_LOADING_LIST, StateEvent )
                 .always.execute( RemoveAllLoaderServiceListeners );
 
         flow
-                .on( StateConstant.START_OPENING, StateEvent )
-                .always.execute( AcquireList, onLoadQueueCompleteChangeStateTo(StateConstant.IMPORT, injector) );
+                .on( StateConstant.START_LOADING_LIST, StateEvent )
+                .always.execute( AcquireList, onLoadQueueCompleteChangeStateTo(StateConstant.LOAD_IMAGES, injector) );
 
 
     }

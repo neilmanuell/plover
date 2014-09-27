@@ -1,6 +1,6 @@
 package plover.controller.cmds.saving
 {
-import plover.model.files.FileModel;
+import plover.model.files.ImportFileModel;
 import plover.model.slides.SlideCarriage;
 import plover.service.file.DataFileOutService;
 
@@ -13,7 +13,7 @@ public class WriteToListFile
     public var data:SlideCarriage;
 
     [Inject]
-    public var files:FileModel;
+    public var files:ImportFileModel;
 
     public function execute():void
     {

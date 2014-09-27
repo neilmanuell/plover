@@ -7,9 +7,9 @@ import tools.signals.Signal1;
 
 public class BrowseImageFileService implements BrowseFileService
 {
-    private const _complete:Signal1 = new Signal1( ImageServiceResults );
-    private const EXTENTIONS:Vector.<String> = new <String>["jpg", "png", "jpeg"];
-    private var _results:ImageServiceResults;
+    private const _complete:Signal1 = new Signal1( BrowseResults );
+   // private const EXTENTIONS:Vector.<String> = new <String>["jpg", "png", "jpeg"];
+    private var _results:BrowseResults;
 
     public function browse():Signal1
     {
@@ -40,11 +40,11 @@ public class BrowseImageFileService implements BrowseFileService
 
     private function dispatch( success:Boolean, file:File ):void
     {
-        _results = new ImageServiceResults( success, file );
+        _results = new BrowseResults( success, file );
         _complete.dispatch( _results );
     }
 
-    public function get results():ImageServiceResults
+    public function get results():BrowseResults
     {
         return _results;
     }
