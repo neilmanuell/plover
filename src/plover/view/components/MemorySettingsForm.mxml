@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<components:MemorySettingsFormBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+                                   xmlns:s="library://ns.adobe.com/flex/spark"
+                                   xmlns:components="plover.view.components.*"
+                                   title="Bitmap Memory Settings"
+        >
+    <components:layout>
+        <s:VerticalLayout paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10"/>
+    </components:layout>
+
+    <fx:Binding source="memorySlider.value" destination="dataProvider.bitmapMemoryAllocation"/>
+    <fx:Binding source="dataProvider.bitmapMemoryAllocation" destination="memorySlider.value"/>
+    <fx:Binding source="dataProvider.bitmapMemoryAllocationString" destination="allocationInMBLabel.text"/>
+
+    <fx:Binding source="dataProvider.maxBitmapWidth.toString()" destination="maxBitmapWidth.text"/>
+    <fx:Binding source="dataProvider.maxBitmapHeight.toString()" destination="maxBitmapHeight.text"/>
+    <fx:Binding destination="dataProvider.maxBitmapWidth" source="Number(maxBitmapWidth.text)"/>
+    <fx:Binding destination="dataProvider.maxBitmapHeight" source="Number(maxBitmapHeight.text)"/>
+
+
+    <s:HSlider id="memorySlider"
+               showDataTip="false"
+               width="150"
+               minimum="104857600"
+               maximum="524288000"
+               stepSize="512"/>
+    <s:Label id="allocationInMBLabel"/>
+
+    <s:TextInput id="maxBitmapWidth" restrict="0-9"/>
+
+    <s:TextInput id="maxBitmapHeight" restrict="0-9"/>
+    <components:controlBarContent>
+        <s:Button label="ok" click="{dataProvider.persist();closeRequest.dispatch()}"/>
+        <s:Button label="cancel" click="{dataProvider.reset();closeRequest.dispatch()}"/>
+    </components:controlBarContent>
+
+
+</components:MemorySettingsFormBase>

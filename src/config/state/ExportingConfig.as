@@ -3,7 +3,7 @@ package config.state
 import flash.events.IEventDispatcher;
 
 import plover.controller.cmds.EnableDrag;
-import plover.controller.cmds.importing.FlushImageModel;
+import plover.controller.cmds.importing.FlushImageModels;
 import plover.controller.cmds.importing.HandleItemLoadComplete;
 import plover.controller.cmds.importing.HandleLoadProgress;
 import plover.controller.cmds.importing.LoadImages;
@@ -41,7 +41,7 @@ public class ExportingConfig implements IConfig
         flow
                 .on( StateConstant.START_EXPORTING, StateEvent )
                     .always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.NEXT, injector ) )
-                    .and.always.execute( FlushImageModel, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
+                    .and.always.execute( FlushImageModels, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
 
     }

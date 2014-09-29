@@ -1,6 +1,6 @@
 package plover.controller.cmds
 {
-import plover.controller.events.ChangeDragControlEvent;
+import plover.controller.events.ActionEvent;
 
 import tools.mouse.DragControllerMap;
 
@@ -11,12 +11,11 @@ public class ChangeDragControl
     public var controller:DragControllerMap;
 
     [Inject]
-    public var event:ChangeDragControlEvent;
+    public var event:ActionEvent;
 
     public function execute():void
     {
-        controller.currentControl = event.id;
-
+        controller.currentControl = event.name;
     }
 }
 }

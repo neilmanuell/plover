@@ -32,9 +32,14 @@ public class DragControllerMap
         _currentItem.enabled = _enable;
     }
 
-    public function add( controller:DragController, id:String ):void
+    public function add( controller:DragController, id:String, current:Boolean = false ):void
     {
-        _map[id] = controller
+        _map[id] = controller;
+
+        if ( current )
+        {
+            currentControl = id;
+        }
     }
 }
 }

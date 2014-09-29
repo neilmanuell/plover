@@ -39,6 +39,10 @@ public class SlideBase extends Canvas
            bottomImage.source = slideData.selectedItem;
            topImage.source = slideData.getItemAt( value + 1 );
        }
+        else{
+           bottomImage.source = PLACEHOLDER_BITMAP_DATA.clone();
+           topImage.source = PLACEHOLDER_BITMAP_DATA.clone();
+       }
 
 
 

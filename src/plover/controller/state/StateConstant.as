@@ -43,10 +43,18 @@ public class StateConstant
     public static const SAVING_LIST:String = "state/savingList";
     public static const START_SAVING_LIST:String = "event/start/savingList";
 
+    public static const EDIT_SETTINGS:String = "action/editSettings";
+    public static const EDITING_SETTINGS:String = "state/editingSettings";
+    public static const START_EDITING_SETTINGS:String = "event/start/editingSettings";
+
     public static const EXPORT:String = "action/export";
     public static const EXPORTING:String = "state/exporting";
     public static const SETUP_EXPORTING:String = "state/setUp/exporting";
     public static const START_EXPORTING:String = "event/start/exporting";
+
+    public static const CLOSE:String = "action/close";
+    public static const CLOSING:String = "state/closing";
+    public static const START_CLOSING:String = "state/setUp/closing";
 
     public static const FSM:XML = <fsm initial={BOOTSTRAPPING}>
 
@@ -60,6 +68,16 @@ public class StateConstant
             <transition action={SAVE} target={SAVING_LIST}/>
             <transition action={EXPORT} target={EXPORTING}/>
             <transition action={QUIT} target={QUITTING}/>
+            <transition action={CLOSE} target={CLOSING}/>
+            <transition action={EDIT_SETTINGS} target={EDITING_SETTINGS}/>
+        </state>
+
+        <state name={EDITING_SETTINGS} changed={START_EDITING_SETTINGS}>
+            <transition action={NEXT} target={IDLING}/>
+        </state>
+
+        <state name={CLOSING} changed={START_CLOSING}>
+            <transition action={NEXT} target={IDLING}/>
         </state>
 
         <state name={OPENING} changed={START_OPENING}>

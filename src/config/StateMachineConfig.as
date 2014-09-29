@@ -2,6 +2,8 @@ package config
 {
 import config.state.BootstrapingConfig;
 import config.state.BrowsingConfig;
+import config.state.ClosingConfig;
+import config.state.EditingSettingsConfig;
 import config.state.ExitingConfig;
 import config.state.ExportingConfig;
 import config.state.IdlingConfig;
@@ -48,6 +50,8 @@ public class StateMachineConfig implements IConfig
                 OpeningConfig,
                 ExitingConfig,
                 IdlingConfig,
+                ClosingConfig,
+                EditingSettingsConfig,
                 ImportingConfig,
                 BrowsingConfig,
                 ExportingConfig,

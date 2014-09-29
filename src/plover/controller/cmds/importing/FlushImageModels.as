@@ -4,7 +4,7 @@ import plover.model.files.ImportFileModel;
 import plover.model.slides.SlideCarriage;
 import plover.service.memory.BitmapMemoryModel;
 
-public class FlushImageModel
+public class FlushImageModels
 {
 
     [Inject]

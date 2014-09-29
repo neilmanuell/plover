@@ -11,9 +11,7 @@
             <config:ModelConfig/>
             <config:ViewConfig/>
             <config:ServiceConfig/>
-            <config:KeyboardRouterConfig/>
             <config:MouseDragConfig/>
-            <config:ControllerConfig/>
             <config:StateMachineConfig/>
             <config:StartUpConfig/>
         </rl2:ContextBuilder>
