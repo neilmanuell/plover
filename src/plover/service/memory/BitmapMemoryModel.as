@@ -5,23 +5,19 @@ import flash.events.IEventDispatcher;
 import flash.geom.Rectangle;
 
 import plover.controller.events.PloverProgressEvent;
-
 import plover.model.settings.BitmapMemorySettings;
-
 import plover.utils.bmp.fitRectangle;
 import plover.utils.bmp.limitBitmapDataSize;
 
 public class BitmapMemoryModel
 {
-    private var _settings:BitmapMemorySettings;
-    private var _dispatcher:IEventDispatcher;
-
-    public function BitmapMemoryModel(settings:BitmapMemorySettings, dispatcher:IEventDispatcher)
+    public function BitmapMemoryModel( settings:BitmapMemorySettings, dispatcher:IEventDispatcher )
     {
         _settings = settings;
         _dispatcher = dispatcher;
     }
-
+    private var _settings:BitmapMemorySettings;
+    private var _dispatcher:IEventDispatcher;
     private var _calculatedSize:Rectangle;
     private var _actualTotal:Number = 0;
 
@@ -37,14 +33,16 @@ public class BitmapMemoryModel
         {
             calculateSize( new Rectangle( 0, 0, bmp.width, bmp.height ), numbBmp )
         }
-        const out:BitmapData =  limitBitmapDataSize( bmp, _calculatedSize.width, _calculatedSize.height );
-        _actualTotal += calculateBitmapBytes(out.width, out.height);
-        if( _actualTotal > _settings.bitmapMemoryAllocation){
-            trace("STOP")
+        const out:BitmapData = limitBitmapDataSize( bmp, _calculatedSize.width, _calculatedSize.height );
+        _actualTotal += calculateBitmapBytes( out.width, out.height );
+        if ( _actualTotal > _settings.bitmapMemoryAllocation )
+        {
+            trace( "STOP" )
         }
 
-        else{
-              _dispatcher.dispatchEvent(new PloverProgressEvent(PloverProgressEvent.MEMORY_ALLOCATION_PROGRESS, _actualTotal, _settings.bitmapMemoryAllocation));
+        else
+        {
+            _dispatcher.dispatchEvent( new PloverProgressEvent( PloverProgressEvent.MEMORY_ALLOCATION_PROGRESS, _actualTotal, _settings.bitmapMemoryAllocation ) );
         }
 
         return out;
@@ -56,9 +54,9 @@ public class BitmapMemoryModel
         return (Math.max( 1, height * (width / 64) >> 0 ) * 256) * numbBmp;
     }
 
-    private function calculateBitmapBytes( width:Number, height:Number):Number
+    private function calculateBitmapBytes( width:Number, height:Number ):Number
     {
-        return (Math.max( 1, height * (width / 64) >> 0 ) * 256) ;
+        return (Math.max( 1, height * (width / 64) >> 0 ) * 256);
     }
 
     private function calculateSize( rect:Rectangle, numbBmp:int ):void

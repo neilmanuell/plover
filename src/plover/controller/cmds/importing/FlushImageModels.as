@@ -1,6 +1,5 @@
 package plover.controller.cmds.importing
 {
-import plover.model.files.ImportFileModel;
 import plover.model.slides.SlideCarriage;
 import plover.service.memory.BitmapMemoryModel;
 

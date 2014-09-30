@@ -8,12 +8,11 @@ import tools.loaderservice.api.MP3Player;
 
 public class SimpleMP3Player implements MP3Player
 {
-    private var _loader:MP3Loader;
-
     public function SimpleMP3Player( loader:MP3Loader ):void
     {
         _loader = loader;
     }
+    private var _loader:MP3Loader;
 
     public function gotoSoundTime( time:Number, forcePlay:Boolean = false, resetRepeatCount:Boolean = true ):void
     {

@@ -23,6 +23,11 @@ public class ApplicationMediator extends Mediator
         view.menu.addEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );
     }
 
+    override public function destroy():void
+    {
+        view.menu.removeEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );
+    }
+
     private function onMenuItemClick( event:FlexNativeMenuEvent ):void
     {
         dispatch( new ActionEvent( event.item.@id, event.nativeMenu ) );
@@ -31,13 +36,6 @@ public class ApplicationMediator extends Mediator
     private function onComplete( event:FlexEvent ):void
     {
         dispatch( new StateEvent( StateEvent.ACTION, StateConstant.NEXT ) )
-    }
-
-
-
-    override public function destroy():void
-    {
-        view.menu.removeEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );
     }
 
 

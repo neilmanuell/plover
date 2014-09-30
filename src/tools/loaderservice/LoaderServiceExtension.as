@@ -18,7 +18,7 @@ public class LoaderServiceExtension implements IExtension
     {
         var injector:IInjector = context.injector;
 
-        const service:LoaderMaxService = injector.instantiateUnmapped(LoaderMaxService);
+        const service:LoaderMaxService = injector.instantiateUnmapped( LoaderMaxService );
 
         injector.map( LoaderService ).toValue( service );
         injector.map( FontLibrary ).toValue( service );

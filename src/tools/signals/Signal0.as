@@ -4,28 +4,28 @@
 
 package tools.signals
 {
-	/**
-	 * Provides a fast signal for use where no parameters are dispatched with the signal.
-	 */
-	public class Signal0 extends SignalBase
-	{
-		public function Signal0()
-		{
-		}
+/**
+ * Provides a fast signal for use where no parameters are dispatched with the signal.
+ */
+public class Signal0 extends SignalBase
+{
+    public function Signal0()
+    {
+    }
 
-		public function dispatch() : void
-		{
-			startDispatch();
-			var node : ListenerNode;
-			for ( node = head; node; node = node.next )
-			{
-				node.listener();
-				if( node.once )
-				{
-					remove( node.listener );
-				}
-			}
-			endDispatch();
-		}
-	}
+    public function dispatch():void
+    {
+        startDispatch();
+        var node:ListenerNode;
+        for ( node = head; node; node = node.next )
+        {
+            node.listener();
+            if ( node.once )
+            {
+                remove( node.listener );
+            }
+        }
+        endDispatch();
+    }
+}
 }

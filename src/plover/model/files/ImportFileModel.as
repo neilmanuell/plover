@@ -10,14 +10,14 @@ public class ImportFileModel
     private var _imageFiles:Vector.<File>;
     private var _imageURLs:Array;
 
-    public function get length():int
-    {
-       return _imageFiles.length;
-    }
-
     public function get imageURLs():Array
     {
         return _imageURLs || (_imageURLs = getURLSFromFiles( _imageFiles ));
+    }
+
+    public function get length():int
+    {
+        return _imageFiles.length;
     }
 
     private var _list:File;
@@ -32,6 +32,11 @@ public class ImportFileModel
     public function get parent():File
     {
         return _parent;
+    }
+
+    public function get listExists():Boolean
+    {
+        return (_list == null ) ? false : list.exists;
     }
 
     public function setImageFiles( files:Vector.<File> ):void
@@ -74,12 +79,6 @@ public class ImportFileModel
     public function flush():void
     {
         _imageURLs = null;
-    }
-
-
-    public function get listExists():Boolean
-    {
-        return (_list == null ) ? false : list.exists;
     }
 
 

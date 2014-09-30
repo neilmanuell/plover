@@ -20,7 +20,7 @@ public class PloverProgressEvent extends ProgressEvent
 
     override public function clone():Event
     {
-        return new PloverProgressEvent(type,  bytesLoaded, bytesTotal );
+        return new PloverProgressEvent( type, bytesLoaded, bytesTotal );
     }
 
 

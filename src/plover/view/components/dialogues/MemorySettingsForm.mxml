@@ -36,6 +36,5 @@
 
 
     <fx:Script><![CDATA[
-        import plover.view.components.*;
         ]]></fx:Script>
 </dialogues:MemorySettingsFormBase>

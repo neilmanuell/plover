@@ -2,7 +2,6 @@ package config.state
 {
 import flash.events.IEventDispatcher;
 
-import plover.controller.cmds.importing.FlushImageModels;
 import plover.controller.cmds.settings.PopSettingsDialogue;
 import plover.controller.cmds.thenChangeStateTo;
 import plover.controller.state.StateConstant;

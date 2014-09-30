@@ -11,6 +11,16 @@ public class BrowseImageFileService implements BrowseFileService
     private const _complete:Signal1 = new Signal1( BrowseResults );
     private var _results:BrowseResults;
 
+    public function get results():BrowseResults
+    {
+        return _results;
+    }
+
+    public function get browseComplete():Signal1
+    {
+        return _complete;
+    }
+
     public function browse():Signal1
     {
         const file:File = File.documentsDirectory;
@@ -25,15 +35,16 @@ public class BrowseImageFileService implements BrowseFileService
 
         catch ( error:Error )
         {
-            dispatch( false, error);
+            dispatch( false, error );
         }
 
         return _complete;
     }
 
-    public function get browseComplete():Signal1
+    private function dispatch( success:Boolean, data:* ):void
     {
-        return _complete;
+        _results = new BrowseResults( success, data );
+        _complete.dispatch( _results );
     }
 
     private function onCancel( event:Event ):void
@@ -49,19 +60,7 @@ public class BrowseImageFileService implements BrowseFileService
 
     private function onIOError( event:Event ):void
     {
-        dispatch( false, event);
-    }
-
-
-    private function dispatch( success:Boolean, data:* ):void
-    {
-        _results = new BrowseResults( success, data );
-        _complete.dispatch( _results );
-    }
-
-    public function get results():BrowseResults
-    {
-        return _results;
+        dispatch( false, event );
     }
 }
 }

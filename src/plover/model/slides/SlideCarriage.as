@@ -18,32 +18,6 @@ public class SlideCarriage implements DragControllerClient
 
     private var _selectedItem:BitmapData;
 
-
-    public function serialise( sort:Boolean = false ):String
-    {
-        const out:Array = [];
-
-        const len:int = _mappings.length;
-        for ( var i:int = 0; i < len; i++ )
-        {
-            var mapping:Mapping = _mappings.getItemAt( i ) as Mapping;
-            out.push( mapping.file.name );
-        }
-
-        if ( sort )
-        {
-            out.sort();
-        }
-
-        return JSON.stringify( out );
-    }
-
-
-    public function get dataProvider():IList
-    {
-        return _mappings;
-    }
-
     [Bindable]
     public function get selectedItem():BitmapData
     {
@@ -53,6 +27,11 @@ public class SlideCarriage implements DragControllerClient
     public function set selectedItem( value:BitmapData ):void
     {
         _selectedItem = value;
+    }
+
+    public function get dataProvider():IList
+    {
+        return _mappings;
     }
 
     private var _selectedIndex:int = -1;
@@ -98,6 +77,25 @@ public class SlideCarriage implements DragControllerClient
     public function get length():int
     {
         return _mappings.length;
+    }
+
+    public function serialise( sort:Boolean = false ):String
+    {
+        const out:Array = [];
+
+        const len:int = _mappings.length;
+        for ( var i:int = 0; i < len; i++ )
+        {
+            var mapping:Mapping = _mappings.getItemAt( i ) as Mapping;
+            out.push( mapping.file.name );
+        }
+
+        if ( sort )
+        {
+            out.sort();
+        }
+
+        return JSON.stringify( out );
     }
 
     public function getItemAt( index:int ):BitmapData

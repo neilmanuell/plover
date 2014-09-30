@@ -1,7 +1,6 @@
 package plover.view.components.editor
 {
 import plover.model.slides.SlideCarriage;
-import plover.view.components.editor.Editor;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 

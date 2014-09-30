@@ -27,7 +27,7 @@ public class SavingConfig implements IConfig
 
         flow
                 .on( StateConstant.START_SAVING_LIST, StateEvent )
-                .always.execute( WriteToListFile, thenChangeStateTo( StateConstant.IDLE, dispatcher )  )
+                .always.execute( WriteToListFile, thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
 
 
     }

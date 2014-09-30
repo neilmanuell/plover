@@ -24,7 +24,6 @@ public class ErroringConfig implements IConfig
                 .always.execute( PopupAlert );
 
 
-
     }
 
 

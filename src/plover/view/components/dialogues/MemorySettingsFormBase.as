@@ -2,7 +2,6 @@ package plover.view.components.dialogues
 {
 import plover.model.settings.BitmapMemorySettings;
 
-import spark.components.Form;
 import spark.components.Panel;
 
 import tools.signals.Signal0;

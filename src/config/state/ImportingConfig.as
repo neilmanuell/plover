@@ -45,11 +45,11 @@ public class ImportingConfig implements IConfig
                 .on( StateConstant.START_LOADING_IMAGES, StateEvent )
                 .always.execute( RetrieveImageFiles ).butOnlyIf( ListFileDoesNotExist )
                 .and.always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.NEXT, injector ) )
-                .and.always.execute( PopProgressDialogue,FlushImageModels, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
+                .and.always.execute( PopProgressDialogue, FlushImageModels, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
         flow
                 .on( StateConstant.TEARDOWN_LOADING_IMAGES, StateEvent )
-                .always.execute( ResetSlideSelectedIndex, RemoveAllLoaderServiceListeners, DispatchProgressCompete, setSelectedImageTo(0, injector) );
+                .always.execute( ResetSlideSelectedIndex, RemoveAllLoaderServiceListeners, DispatchProgressCompete, setSelectedImageTo( 0, injector ) );
 
         flow
                 .on( StateConstant.START_LOADING_IMAGES_REVIEW, StateEvent )

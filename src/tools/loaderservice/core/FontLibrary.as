@@ -16,7 +16,7 @@ public class FontLibrary extends Sprite implements tools.loaderservice.api.FontL
 
     public function install():Boolean
     {
-        if( _fontClasses.length == 0)return false;
+        if ( _fontClasses.length == 0 )return false;
         for each( var font:Class in _fontClasses )
         {
             Font.registerFont( font );

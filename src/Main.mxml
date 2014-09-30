@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
                        xmlns:rl2="http://ns.robotlegs.org/flex/rl2" xmlns:bundles="bundles.*" xmlns:config="config.*"
-                       xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="plover.view.components.*"
+                       xmlns:mx="library://ns.adobe.com/flex/mx"
                        backgroundColor="#0"
                        frameRate="60">
     <fx:Declarations>
@@ -18,11 +18,11 @@
         <fx:XML format="e4x" id="myMenuData">
             <root>
                 <menuitem label="File">
-                    <menuitem id="importImages"  label="open"
-                              keyEquivalent="o" controlKey="true" />
+                    <menuitem id="importImages" label="open"
+                              keyEquivalent="o" controlKey="true"/>
                     <menuitem id="closeBook" label="close"
                               keyEquivalent="w" controlKey="true"/>
-                    <menuitem id="saveBook"  label="save"
+                    <menuitem id="saveBook" label="save"
                               keyEquivalent="s" controlKey="true"/>
                     <menuitem id="exitApp" label="quit"
                               keyEquivalent="q" controlKey="true"/>
@@ -31,7 +31,7 @@
                 <menuitem label="View">
                     <menuitem id="viewSlideShow" label="view slide show"
                               keyEquivalent="f" controlKey="true"/>
-                    <menuitem id="viewEditor"  label="view editor"
+                    <menuitem id="viewEditor" label="view editor"
                               keyEquivalent="e" controlKey="true"/>
                 </menuitem>
                 <menuitem label="Settings">
@@ -48,13 +48,13 @@
     </fx:Declarations>
 
     <s:menu>
-        <mx:FlexNativeMenu id= "menu"
+        <mx:FlexNativeMenu id="menu"
                            dataProvider="{myMenuData}"
                            labelField="@label"
                            keyEquivalentField="@keyEquivalent"
                            showRoot="false"/>
     </s:menu>
-    <mx:ViewStack id="viewStack" width="100%"  height="100%"/>
+    <mx:ViewStack id="viewStack" width="100%" height="100%"/>
     <s:layout>
         <s:VerticalLayout/>
     </s:layout>

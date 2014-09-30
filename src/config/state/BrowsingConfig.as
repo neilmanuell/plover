@@ -36,25 +36,25 @@ public class BrowsingConfig implements IConfig
     {
         flow
                 .on( StateConstant.START_OPENING, StateEvent )
-                    .always.execute( BrowseForOpenDialogue, onBrowseCompleteChangeStateTo( StateConstant.NEXT, injector ) );
+                .always.execute( BrowseForOpenDialogue, onBrowseCompleteChangeStateTo( StateConstant.NEXT, injector ) );
 
         flow
                 .on( StateConstant.START_OPENING_REVIEW, StateEvent )
-                    .either
-                        .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
-                        .butOnlyIf( BrowsingCancelled )
-                    .or
-                        .execute( thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
-                        .butOnlyIf( BrowsingFailed )
-                    .or
-                        .execute( sendErrorReport(new FolderHasNoImagesReport(), injector), thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
-                        .butOnlyIf(  FolderDoesNotContainImages )
+                .either
+                .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
+                .butOnlyIf( BrowsingCancelled )
+                .or
+                .execute( thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
+                .butOnlyIf( BrowsingFailed )
+                .or
+                .execute( sendErrorReport( new FolderHasNoImagesReport(), injector ), thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
+                .butOnlyIf( FolderDoesNotContainImages )
 
-                    .or
-                        .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
-                        .butOnlyIf( ListFileDoesExist )
-                    .or
-                        .execute( thenChangeStateTo( StateConstant.LOAD_IMAGES, dispatcher ) );
+                .or
+                .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
+                .butOnlyIf( ListFileDoesExist )
+                .or
+                .execute( thenChangeStateTo( StateConstant.LOAD_IMAGES, dispatcher ) );
 
     }
 

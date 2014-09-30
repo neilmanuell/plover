@@ -13,15 +13,16 @@ public class PopSettingsDialogue
 {
 
 
-    [Inject] public var viewManager:IViewManager;
+    [Inject]
+    public var viewManager:IViewManager;
 
     public function execute():void
     {
 
         const w:MemorySettingsForm = new MemorySettingsForm();
-        viewManager.addContainer(w);
-        PopUpManager.addPopUp(w, FlexGlobals.topLevelApplication as DisplayObject);
-        PopUpManager.centerPopUp(w);
+        viewManager.addContainer( w );
+        PopUpManager.addPopUp( w, FlexGlobals.topLevelApplication as DisplayObject );
+        PopUpManager.centerPopUp( w );
     }
 }
 }

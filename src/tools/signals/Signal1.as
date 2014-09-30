@@ -4,31 +4,30 @@
 
 package tools.signals
 {
-	/**
-	 * Provides a fast signal for use where one parameter is dispatched with the signal.
-	 */
-	public class Signal1 extends SignalBase
-	{
-		private var type : Class;
+/**
+ * Provides a fast signal for use where one parameter is dispatched with the signal.
+ */
+public class Signal1 extends SignalBase
+{
+    public function Signal1( type:Class )
+    {
+        this.type = type;
+    }
+    private var type:Class;
 
-		public function Signal1( type : Class )
-		{
-			this.type = type;
-		}
-
-		public function dispatch( object : * ) : void
-		{
-			startDispatch();
-			var node : ListenerNode;
-			for ( node = head; node; node = node.next )
-			{
-				node.listener( object );
-				if( node.once )
-				{
-					remove( node.listener );
-				}
-			}
-			endDispatch();
-		}
-	}
+    public function dispatch( object:* ):void
+    {
+        startDispatch();
+        var node:ListenerNode;
+        for ( node = head; node; node = node.next )
+        {
+            node.listener( object );
+            if ( node.once )
+            {
+                remove( node.listener );
+            }
+        }
+        endDispatch();
+    }
+}
 }

@@ -29,6 +29,11 @@ public class ImportEvent extends Event
         return _urls || (_urls = getURLSFromFiles( _files ));
     }
 
+    override public function clone():Event
+    {
+        return new ImportEvent( _files );
+    }
+
     public function getFileFromURL( url:String ):File
     {
         var out:File;
@@ -42,11 +47,6 @@ public class ImportEvent extends Event
             return true;
         } )
         return out;
-    }
-
-    override public function clone():Event
-    {
-        return new ImportEvent( _files );
     }
 }
 }

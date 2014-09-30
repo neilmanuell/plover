@@ -1,12 +1,10 @@
 package plover.controller.cmds.importing
 {
 import flash.display.BitmapData;
-import flash.system.System;
 
 import plover.model.files.ImportFileModel;
 import plover.model.slides.SlideCarriage;
 import plover.service.memory.BitmapMemoryModel;
-import plover.utils.bmp.limitBitmapDataSize;
 
 import tools.loaderservice.api.BitmapDataProvider;
 import tools.loaderservice.api.LoaderService;
@@ -36,7 +34,7 @@ public class HandleItemLoadComplete
         {
             const bmp:BitmapData = provider.getBitmapData( url );
 
-            const resizedBmp:BitmapData =  memory.resize(bmp, files.length);
+            const resizedBmp:BitmapData = memory.resize( bmp, files.length );
             model.add( files.getFileFromURL( url ), resizedBmp );      //bmp, 1600, 1200
 
         } );

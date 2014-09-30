@@ -5,16 +5,16 @@ import flash.display.NativeWindow;
 import mx.containers.ViewStack;
 
 import plover.view.ApplicationMediator;
-import plover.view.components.editor.EditorMediator;
 import plover.view.NativeWindowMediator;
-import plover.view.components.slide.SlideMediator;
 import plover.view.ViewStackMediator;
-import plover.view.components.editor.Editor;
-import plover.view.components.slide.Slide;
 import plover.view.components.dialogues.MemorySettingsForm;
 import plover.view.components.dialogues.MemorySettingsFormMediator;
 import plover.view.components.dialogues.ProgressDialogue;
 import plover.view.components.dialogues.ProgressDialogueMediator;
+import plover.view.components.editor.Editor;
+import plover.view.components.editor.EditorMediator;
+import plover.view.components.slide.Slide;
+import plover.view.components.slide.SlideMediator;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;

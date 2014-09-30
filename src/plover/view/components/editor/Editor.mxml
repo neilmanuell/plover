@@ -25,6 +25,5 @@
         </s:layout>
     </s:List>
     <fx:Script><![CDATA[
-        import plover.view.components.*;
         ]]></fx:Script>
 </editor:EditorBase>

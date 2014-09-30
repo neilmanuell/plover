@@ -35,14 +35,11 @@ public class ProgressDialogueMediator extends Mediator
     }
 
 
-
-    private function close(event:Event):void
+    private function close( event:Event ):void
     {
         PopUpManager.removePopUp( view );
         viewManager.removeContainer( view );
     }
-
-
 
 
 }

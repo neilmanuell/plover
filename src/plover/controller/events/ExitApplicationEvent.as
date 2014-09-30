@@ -6,14 +6,14 @@ public class ExitApplicationEvent extends Event
 {
     public static const EXIT:String = "ExitApplicationEvent.EXIT";
 
-    public function ExitApplicationEvent(  )
+    public function ExitApplicationEvent()
     {
         super( EXIT );
     }
 
     override public function clone():Event
     {
-        return new ExitApplicationEvent(  );
+        return new ExitApplicationEvent();
     }
 
 

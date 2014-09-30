@@ -11,16 +11,16 @@ public class AbsoluteDragController extends DragController
         super( client, view );
     }
 
-    private function removeDownListeners():void
-    {
-        _display.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-        _display.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-    }
-
     override protected function removeAllListeners():void
     {
         _display.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
         removeDownListeners();
+    }
+
+    private function removeDownListeners():void
+    {
+        _display.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
+        _display.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
 
     override protected function onMouseDown( event:MouseEvent ):void

@@ -9,9 +9,9 @@ import robotlegs.bender.framework.api.IInjector;
 
 public function sendErrorReport( report:ErrorReport, injector:IInjector ):Function
 {
-    return function ( event:Event= null ):void
+    return function ( event:Event = null ):void
     {
-        const registry:ErrorRegistry = injector.getInstance(ErrorRegistry);
+        const registry:ErrorRegistry = injector.getInstance( ErrorRegistry );
         registry.activeReport = report;
     }
 }

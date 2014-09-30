@@ -11,10 +11,6 @@ public class ScreenInfo
         return ScreenInfo[name];
     }
 
-    private var _name:String;
-    private var _index:int;
-    private var _label:String;
-
     public function ScreenInfo( index:int, name:String, label:String )
     {
         _index = index;
@@ -22,15 +18,21 @@ public class ScreenInfo
         _label = label;
     }
 
-    public function get index():int
-    {
-        return _index;
-    }
+    private var _name:String;
 
     public function get name():String
     {
         return _name;
     }
+
+    private var _index:int;
+
+    public function get index():int
+    {
+        return _index;
+    }
+
+    private var _label:String;
 
     public function get label():String
     {

@@ -6,24 +6,23 @@ import robotlegs.bender.extensions.contextView.ContextView;
 
 public class RelativeDragController extends DragController
 {
-    private var _previousPoint:Number;
-    private var _previousMultiplier:Number;
-
     public function RelativeDragController( dispatcher:DragControllerClient, view:ContextView )
     {
         super( dispatcher, view );
+    }
+    private var _previousPoint:Number;
+    private var _previousMultiplier:Number;
+
+    override protected function removeAllListeners():void
+    {
+        _display.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
+        removeDownListeners();
     }
 
     private function removeDownListeners():void
     {
         _display.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
         _display.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-    }
-
-    override protected function removeAllListeners():void
-    {
-        _display.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
-        removeDownListeners();
     }
 
     override protected function onMouseDown( event:MouseEvent ):void

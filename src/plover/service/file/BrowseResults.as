@@ -7,22 +7,21 @@ import plover.model.errors.GenericErrorReport;
 
 public class BrowseResults
 {
-    public var success:Boolean;
-    public var isError:Boolean;
-    public var wasCancelled:Boolean;
-    public var data:*;
-
-    public function BrowseResults( status:Boolean, data:*)
+    public function BrowseResults( status:Boolean, data:* )
     {
         this.success = status;
         this.data = data;
         this.wasCancelled = (status && data == null);
         this.isError = (!status && !(data is File));
     }
+    public var success:Boolean;
+    public var isError:Boolean;
+    public var wasCancelled:Boolean;
+    public var data:*;
 
     public function get errorReport():ErrorReport
     {
-        return new GenericErrorReport(data);
+        return new GenericErrorReport( data );
     }
 }
 }

@@ -17,7 +17,7 @@ public class WriteToListFile
 
     public function execute():void
     {
-        const data:String =  data.serialise();
+        const data:String = data.serialise();
         service.write( files.list, data );
     }
 }

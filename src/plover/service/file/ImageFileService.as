@@ -15,7 +15,7 @@ public class ImageFileService
         {
             return (!item.isDirectory && EXTENTIONS.indexOf( item.extension.toLowerCase() ) != -1);
         } );
-        return Vector.< File>(out);
+        return Vector.< File>( out );
     }
 
     public function containsImageFiles( file:File ):Boolean

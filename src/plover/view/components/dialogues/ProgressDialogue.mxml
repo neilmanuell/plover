@@ -7,7 +7,7 @@
                                 xmlns:s="spark.components.*"
                                 height="66"
                                 title="Importing Images">
-    <dialogues:layout >
+    <dialogues:layout>
         <layouts:VerticalLayout/>
     </dialogues:layout>
     <s:Label text="load progress:"/>

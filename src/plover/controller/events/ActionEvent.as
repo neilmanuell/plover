@@ -7,8 +7,6 @@ import flash.events.Event;
 public class ActionEvent extends Event
 {
     public static const EXECUTE:String = "ActionEvent.EXECUTE";
-    private var _name:String;
-    private var _nativeMenu:NativeMenu;
 
     public function ActionEvent( name:String, nativeMenu:NativeMenu )
     {
@@ -16,18 +14,13 @@ public class ActionEvent extends Event
         _name = name;
         _nativeMenu = nativeMenu;
     }
+    private var _nativeMenu:NativeMenu;
 
-    public function deselectMenuItem( id:String ):void
+    private var _name:String;
+
+    public function get name():String
     {
-        _nativeMenu.items.forEach( function ( item:NativeMenuItem, index:int, a:Array ):void
-        {
-            if( item.isSeparator )return;
-
-            if ( item.data.@id == id )
-            {
-                item.data.@toggled = false;
-            }
-        } );
+        return _name;
     }
 
     override public function clone():Event
@@ -35,9 +28,17 @@ public class ActionEvent extends Event
         return new ActionEvent( _name, _nativeMenu );
     }
 
-    public function get name():String
+    public function deselectMenuItem( id:String ):void
     {
-        return _name;
+        _nativeMenu.items.forEach( function ( item:NativeMenuItem, index:int, a:Array ):void
+        {
+            if ( item.isSeparator )return;
+
+            if ( item.data.@id == id )
+            {
+                item.data.@toggled = false;
+            }
+        } );
     }
 }
 }

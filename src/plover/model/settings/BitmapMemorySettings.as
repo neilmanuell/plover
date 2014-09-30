@@ -16,12 +16,25 @@ public class BitmapMemorySettings
             maxBitmapHeight = 900;
             persist();
         }
-        else{
+        else
+        {
             reset();
         }
     }
-    private var _maxBitmapHeight:Number;
     private var _so:SharedObject;
+
+    private var _maxBitmapHeight:Number;
+
+    [Bindable]
+    public function get maxBitmapHeight():Number
+    {
+        return _maxBitmapHeight
+    }
+
+    public function set maxBitmapHeight( value:Number ):void
+    {
+        _maxBitmapHeight = value
+    }
 
     private var _bitmapMemoryAllocation:uint;
 
@@ -34,7 +47,7 @@ public class BitmapMemorySettings
     public function set bitmapMemoryAllocation( value:uint ):void
     {
         _bitmapMemoryAllocation = value;
-        bitmapMemoryAllocationString = Number(Math.floor( ((_bitmapMemoryAllocation / (1024 * 1024)) * 100) ) / 100).toFixed(2) + " MB";
+        bitmapMemoryAllocationString = Number( Math.floor( ((_bitmapMemoryAllocation / (1024 * 1024)) * 100) ) / 100 ).toFixed( 2 ) + " MB";
     }
 
     private var _maxBitmapWidth:Number;
@@ -45,20 +58,9 @@ public class BitmapMemorySettings
         return _maxBitmapWidth
     }
 
-    public function set maxBitmapWidth(value:Number):void
+    public function set maxBitmapWidth( value:Number ):void
     {
         _maxBitmapWidth = value
-    }
-
-    [Bindable]
-    public function get maxBitmapHeight():Number
-    {
-        return _maxBitmapHeight
-    }
-
-    public function set maxBitmapHeight(value:Number):void
-    {
-        _maxBitmapHeight = value
     }
 
     private var _bitmapMemoryAllocationString:String;
@@ -69,7 +71,7 @@ public class BitmapMemorySettings
         return _bitmapMemoryAllocationString
     }
 
-    public function set bitmapMemoryAllocationString(value:String):void
+    public function set bitmapMemoryAllocationString( value:String ):void
     {
         _bitmapMemoryAllocationString = value
     }
