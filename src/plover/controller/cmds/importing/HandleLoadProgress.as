@@ -3,6 +3,8 @@ package plover.controller.cmds.importing
 import flash.events.IEventDispatcher;
 import flash.events.ProgressEvent;
 
+import plover.controller.events.PloverProgressEvent;
+
 import tools.loaderservice.api.LoaderService;
 
 public class HandleLoadProgress
@@ -18,7 +20,7 @@ public class HandleLoadProgress
     {
         service.on.queueProgress.add( function ( loaded:Number, total:Number ):void
         {
-            dispatcher.dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, loaded, total ) );
+            dispatcher.dispatchEvent( new PloverProgressEvent( PloverProgressEvent.LOAD_PROGRESS,  loaded, total ) );
         } );
 
     }

@@ -1,7 +1,10 @@
 package plover.service.memory
 {
 import flash.display.BitmapData;
+import flash.events.IEventDispatcher;
 import flash.geom.Rectangle;
+
+import plover.controller.events.PloverProgressEvent;
 
 import plover.model.settings.BitmapMemorySettings;
 
@@ -11,10 +14,12 @@ import plover.utils.bmp.limitBitmapDataSize;
 public class BitmapMemoryModel
 {
     private var _settings:BitmapMemorySettings;
+    private var _dispatcher:IEventDispatcher;
 
-    public function BitmapMemoryModel(settings:BitmapMemorySettings)
+    public function BitmapMemoryModel(settings:BitmapMemorySettings, dispatcher:IEventDispatcher)
     {
         _settings = settings;
+        _dispatcher = dispatcher;
     }
 
     private var _calculatedSize:Rectangle;
@@ -37,6 +42,11 @@ public class BitmapMemoryModel
         if( _actualTotal > _settings.bitmapMemoryAllocation){
             trace("STOP")
         }
+
+        else{
+              _dispatcher.dispatchEvent(new PloverProgressEvent(PloverProgressEvent.MEMORY_ALLOCATION_PROGRESS, _actualTotal, _settings.bitmapMemoryAllocation));
+        }
+
         return out;
 
     }

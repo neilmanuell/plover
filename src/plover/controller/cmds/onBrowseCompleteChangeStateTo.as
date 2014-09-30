@@ -1,6 +1,9 @@
 package plover.controller.cmds
 {
-import plover.controller.cmds.browsing.OnBrowseCompleteChangeStateTo;
+import flash.events.IEventDispatcher;
+
+import plover.service.file.BrowseFileService;
+import plover.service.file.BrowseResults;
 
 import robotlegs.bender.framework.api.IInjector;
 
@@ -10,9 +13,14 @@ public function onBrowseCompleteChangeStateTo( action:String, injector:IInjector
 {
     return function ( event:StateEvent ):void
     {
-        const cmd:OnBrowseCompleteChangeStateTo = new OnBrowseCompleteChangeStateTo(action);
-        injector.injectInto(cmd);
-        cmd.execute();
+         const service:BrowseFileService = injector.getInstance(BrowseFileService);
+
+        service.browseComplete.addOnce( function ( result:BrowseResults ):void
+                {
+                    const dispatcher:IEventDispatcher = injector.getInstance(IEventDispatcher);
+                    dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) );
+                }
+        );
     }
 }
 

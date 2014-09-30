@@ -36,8 +36,8 @@ public class AbsoluteDragController extends DragController
 
     override protected function onMouseMove( event:MouseEvent ):void
     {
-        trace( _display.mouseX  );
-        multiplier = _display.mouseX / _display.width;
+        trace( _display.mouseX );
+        multiplier = Math.max( 0, Math.min( 1, _display.mouseX / _display.width ) );
 
     }
 }

@@ -15,9 +15,10 @@ import com.greensock.loading.data.XMLLoaderVars;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.events.IEventDispatcher;
-import flash.events.ProgressEvent;
 import flash.net.URLRequest;
 import flash.utils.ByteArray;
+
+import plover.controller.events.PloverProgressEvent;
 
 import tools.loaderservice.api.BinaryDataProvider;
 import tools.loaderservice.api.BitmapDataProvider;
@@ -213,7 +214,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
 
     private function onProgress( event:LoaderEvent ):void
     {
-        _dispatcher.dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, _loader.bytesLoaded, _loader.bytesTotal ) );
+        _dispatcher.dispatchEvent( new PloverProgressEvent( PloverProgressEvent.LOAD_PROGRESS, _loader.bytesLoaded, _loader.bytesTotal ) );
         _on.queueProgress.dispatch( _loader.bytesLoaded, _loader.bytesTotal )
     }
 

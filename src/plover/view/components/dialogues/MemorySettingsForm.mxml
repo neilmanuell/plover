@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<components:MemorySettingsFormBase xmlns:fx="http://ns.adobe.com/mxml/2009"
-                                   xmlns:s="library://ns.adobe.com/flex/spark"
-                                   xmlns:components="plover.view.components.*"
-                                   title="Bitmap Memory Settings"
+<dialogues:MemorySettingsFormBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+                                  xmlns:s="library://ns.adobe.com/flex/spark"
+                                  xmlns:dialogues="plover.view.components.dialogues.*"
+                                  title="Bitmap Memory Settings"
         >
-    <components:layout>
+    <dialogues:layout>
         <s:VerticalLayout paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10"/>
-    </components:layout>
+    </dialogues:layout>
 
     <fx:Binding source="memorySlider.value" destination="dataProvider.bitmapMemoryAllocation"/>
     <fx:Binding source="dataProvider.bitmapMemoryAllocation" destination="memorySlider.value"/>
@@ -29,10 +29,13 @@
     <s:TextInput id="maxBitmapWidth" restrict="0-9"/>
 
     <s:TextInput id="maxBitmapHeight" restrict="0-9"/>
-    <components:controlBarContent>
+    <dialogues:controlBarContent>
         <s:Button label="ok" click="{dataProvider.persist();closeRequest.dispatch()}"/>
         <s:Button label="cancel" click="{dataProvider.reset();closeRequest.dispatch()}"/>
-    </components:controlBarContent>
+    </dialogues:controlBarContent>
 
 
-</components:MemorySettingsFormBase>
+    <fx:Script><![CDATA[
+        import plover.view.components.*;
+        ]]></fx:Script>
+</dialogues:MemorySettingsFormBase>

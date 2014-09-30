@@ -1,5 +1,6 @@
 package config
 {
+import plover.model.errors.ErrorRegistry;
 import plover.model.files.ExportFileModel;
 import plover.model.files.ImportFileModel;
 import plover.model.settings.BitmapMemorySettings;
@@ -25,6 +26,7 @@ public class ModelConfig implements IConfig
         injector.map( ExportFileModel ).asSingleton();
         injector.map( BitmapMemorySettings ).asSingleton();
         injector.map( BitmapMemoryModel ).asSingleton();
+        injector.map( ErrorRegistry ).asSingleton();
         injector.map( DragControllerClient ).toValue( injector.getInstance( SlideCarriage ) );
     }
 }

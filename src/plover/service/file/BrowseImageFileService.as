@@ -1,6 +1,7 @@
 package plover.service.file
 {
 import flash.events.Event;
+import flash.events.IOErrorEvent;
 import flash.filesystem.File;
 
 import tools.signals.Signal1;
@@ -8,7 +9,6 @@ import tools.signals.Signal1;
 public class BrowseImageFileService implements BrowseFileService
 {
     private const _complete:Signal1 = new Signal1( BrowseResults );
-   // private const EXTENTIONS:Vector.<String> = new <String>["jpg", "png", "jpeg"];
     private var _results:BrowseResults;
 
     public function browse():Signal1
@@ -16,7 +16,17 @@ public class BrowseImageFileService implements BrowseFileService
         const file:File = File.documentsDirectory;
         file.addEventListener( Event.SELECT, onSelected );
         file.addEventListener( Event.CANCEL, onCancel );
-        file.browseForDirectory( "Select a directory" );
+        file.addEventListener( IOErrorEvent.IO_ERROR, onIOError );
+
+        try
+        {
+            file.browseForDirectory( "Select a directory" );
+        }
+
+        catch ( error:Error )
+        {
+            dispatch( false, error);
+        }
 
         return _complete;
     }
@@ -28,7 +38,7 @@ public class BrowseImageFileService implements BrowseFileService
 
     private function onCancel( event:Event ):void
     {
-        dispatch( false, null );
+        dispatch( true, null );
     }
 
     private function onSelected( event:Event ):void
@@ -37,10 +47,15 @@ public class BrowseImageFileService implements BrowseFileService
         dispatch( true, file );
     }
 
-
-    private function dispatch( success:Boolean, file:File ):void
+    private function onIOError( event:Event ):void
     {
-        _results = new BrowseResults( success, file );
+        dispatch( false, event);
+    }
+
+
+    private function dispatch( success:Boolean, data:* ):void
+    {
+        _results = new BrowseResults( success, data );
         _complete.dispatch( _results );
     }
 

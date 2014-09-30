@@ -4,10 +4,14 @@ import flash.events.IEventDispatcher;
 
 import plover.controller.cmds.browsing.BrowseForOpenDialogue;
 import plover.controller.cmds.onBrowseCompleteChangeStateTo;
+import plover.controller.cmds.sendErrorReport;
 import plover.controller.cmds.thenChangeStateTo;
+import plover.controller.guards.BrowsingCancelled;
 import plover.controller.guards.BrowsingFailed;
+import plover.controller.guards.FolderDoesNotContainImages;
 import plover.controller.guards.ListFileDoesExist;
 import plover.controller.state.StateConstant;
+import plover.model.errors.FolderHasNoImagesReport;
 
 import robotlegs.bender.framework.api.IConfig;
 import robotlegs.bender.framework.api.IInjector;
@@ -38,7 +42,14 @@ public class BrowsingConfig implements IConfig
                 .on( StateConstant.START_OPENING_REVIEW, StateEvent )
                     .either
                         .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
+                        .butOnlyIf( BrowsingCancelled )
+                    .or
+                        .execute( thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
                         .butOnlyIf( BrowsingFailed )
+                    .or
+                        .execute( sendErrorReport(new FolderHasNoImagesReport(), injector), thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
+                        .butOnlyIf(  FolderDoesNotContainImages )
+
                     .or
                         .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
                         .butOnlyIf( ListFileDoesExist )

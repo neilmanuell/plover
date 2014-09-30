@@ -1,22 +1,22 @@
-package plover.view
+package plover.view.components.editor
 {
 import plover.model.slides.SlideCarriage;
-import plover.view.components.Slide;
+import plover.view.components.editor.Editor;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
-public class SlideMediator extends Mediator
+public class EditorMediator extends Mediator
 {
 
     [Inject]
-    public var view:Slide;
+    public var view:Editor;
 
     [Inject]
     public var model:SlideCarriage;
 
     override public function initialize():void
     {
-        view.data = model;
+        view.dataProvider = model.dataProvider;
     }
 
 

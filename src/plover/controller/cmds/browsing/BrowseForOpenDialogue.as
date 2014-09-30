@@ -1,10 +1,11 @@
 package plover.controller.cmds.browsing
 {
-import flash.events.IEventDispatcher;
-
+import plover.controller.cmds.sendErrorReport;
 import plover.model.files.ImportFileModel;
 import plover.service.file.BrowseFileService;
 import plover.service.file.BrowseResults;
+
+import robotlegs.bender.framework.api.IInjector;
 
 public class BrowseForOpenDialogue
 {
@@ -15,16 +16,22 @@ public class BrowseForOpenDialogue
     public var model:ImportFileModel;
 
     [Inject]
-    public var dispatcher:IEventDispatcher;
+    public var inject:IInjector;
 
     public function execute():void
     {
         service.browse().addOnce( function ( result:BrowseResults ):void
                 {
-                    if ( result.success )
+                    if ( result.isError )
                     {
-                        model.setParentFile( result.file );
+                        sendErrorReport( result.errorReport, inject );
                     }
+
+                    else if ( result.success && !result.wasCancelled )
+                    {
+                        model.setParentFile( result.data );
+                    }
+
                 }
         );
     }

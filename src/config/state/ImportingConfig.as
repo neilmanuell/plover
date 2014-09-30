@@ -3,6 +3,7 @@ package config.state
 import flash.events.IEventDispatcher;
 
 import plover.controller.cmds.EnableDrag;
+import plover.controller.cmds.importing.DispatchProgressCompete;
 import plover.controller.cmds.importing.FlushImageModels;
 import plover.controller.cmds.importing.HandleItemLoadComplete;
 import plover.controller.cmds.importing.HandleLoadProgress;
@@ -10,6 +11,8 @@ import plover.controller.cmds.importing.LoadImages;
 import plover.controller.cmds.importing.ResetSlideSelectedIndex;
 import plover.controller.cmds.importing.RetrieveImageFiles;
 import plover.controller.cmds.onLoadQueueCompleteChangeStateTo;
+import plover.controller.cmds.opening.PopProgressDialogue;
+import plover.controller.cmds.setSelectedImageTo;
 import plover.controller.cmds.state.RemoveAllLoaderServiceListeners;
 import plover.controller.cmds.thenChangeStateTo;
 import plover.controller.guards.ListFileDoesNotExist;
@@ -42,11 +45,11 @@ public class ImportingConfig implements IConfig
                 .on( StateConstant.START_LOADING_IMAGES, StateEvent )
                 .always.execute( RetrieveImageFiles ).butOnlyIf( ListFileDoesNotExist )
                 .and.always.execute( onLoadQueueCompleteChangeStateTo( StateConstant.NEXT, injector ) )
-                .and.always.execute( FlushImageModels, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
+                .and.always.execute( PopProgressDialogue,FlushImageModels, EnableDrag, HandleItemLoadComplete, HandleLoadProgress, LoadImages );
 
         flow
                 .on( StateConstant.TEARDOWN_LOADING_IMAGES, StateEvent )
-                .always.execute( ResetSlideSelectedIndex, RemoveAllLoaderServiceListeners );
+                .always.execute( ResetSlideSelectedIndex, RemoveAllLoaderServiceListeners, DispatchProgressCompete, setSelectedImageTo(0, injector) );
 
         flow
                 .on( StateConstant.START_LOADING_IMAGES_REVIEW, StateEvent )

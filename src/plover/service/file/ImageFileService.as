@@ -18,5 +18,16 @@ public class ImageFileService
         return Vector.< File>(out);
     }
 
+    public function containsImageFiles( file:File ):Boolean
+    {
+        const contents:Array = file.getDirectoryListing();
+
+        return !contents.every( function ( item:File, index:int, a:Array ):Boolean
+        {
+            return !(!item.isDirectory && EXTENTIONS.indexOf( item.extension.toLowerCase() ) != -1);
+        } );
+
+    }
+
 }
 }

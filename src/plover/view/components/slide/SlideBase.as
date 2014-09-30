@@ -1,5 +1,7 @@
-package plover.view.components
+package plover.view.components.slide
 {
+import plover.view.components.*;
+
 import flash.display.BitmapData;
 
 import mx.containers.Canvas;

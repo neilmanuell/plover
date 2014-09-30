@@ -108,13 +108,15 @@ public class SlideCarriage implements DragControllerClient
     public function add( file:File, bmp:BitmapData ):void
     {
         _mappings.addItem( new Mapping( file, bmp ) );
+        selectedIndex = _mappings.length - 1
     }
 
     public function flush():void
     {
         //const len:int = _mappings.length;
         _mappings.removeAll();
-        for each ( var mapping:Mapping in _mappings){
+        for each ( var mapping:Mapping in _mappings )
+        {
             mapping.dispose();
         }
         selectedIndex = -1;

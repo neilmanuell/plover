@@ -1,15 +1,18 @@
 package tools.mouse
 {
+import com.greensock.TweenLite;
+import com.greensock.easing.Sine;
+
 import flash.events.MouseEvent;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 
-public class RelativeDragController extends DragController
+public class RelativeTweenedDragController extends DragController
 {
     private var _previousPoint:Number;
     private var _previousMultiplier:Number;
 
-    public function RelativeDragController( dispatcher:DragControllerClient, view:ContextView )
+    public function RelativeTweenedDragController( dispatcher:DragControllerClient, view:ContextView )
     {
         super( dispatcher, view );
     }
@@ -43,8 +46,11 @@ public class RelativeDragController extends DragController
     {
 
         const currentPoint:Number = _display.mouseX / (_display.width * 0.5);
-        multiplier = Math.max( 0, Math.min( 1, _previousMultiplier + (currentPoint - _previousPoint) ) );
+        const target:Number = Math.max( 0, Math.min( 1, _previousMultiplier + (currentPoint - _previousPoint) ) );
+        TweenLite.to( this, 3, {multiplier: target, ease: Sine.easeOut } );
 
     }
+
+
 }
 }

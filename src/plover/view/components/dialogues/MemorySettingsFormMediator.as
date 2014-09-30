@@ -1,9 +1,8 @@
-package plover.view
+package plover.view.components.dialogues
 {
 import mx.managers.PopUpManager;
 
 import plover.model.settings.BitmapMemorySettings;
-import plover.view.components.MemorySettingsForm;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 import robotlegs.bender.extensions.viewManager.api.IViewManager;

@@ -1,4 +1,4 @@
-package plover.view.components
+package plover.view.components.dialogues
 {
 import plover.model.settings.BitmapMemorySettings;
 

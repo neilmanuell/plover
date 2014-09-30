@@ -4,6 +4,7 @@ import config.state.BootstrapingConfig;
 import config.state.BrowsingConfig;
 import config.state.ClosingConfig;
 import config.state.EditingSettingsConfig;
+import config.state.ErroringConfig;
 import config.state.ExitingConfig;
 import config.state.ExportingConfig;
 import config.state.IdlingConfig;
@@ -41,7 +42,7 @@ public class StateMachineConfig implements IConfig
 
         fsmInjector.inject( stateMachine );
 
-        context.injector.map( StateHistory ).toValue(stateHistory);
+        context.injector.map( StateHistory ).toValue( stateHistory );
         context.injector.map( StateMachine ).toValue( stateMachine );
 
 
@@ -55,7 +56,8 @@ public class StateMachineConfig implements IConfig
                 ImportingConfig,
                 BrowsingConfig,
                 ExportingConfig,
-                SavingConfig
+                SavingConfig,
+                ErroringConfig
         )
     }
 }

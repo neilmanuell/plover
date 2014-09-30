@@ -5,7 +5,7 @@ import flash.display.DisplayObject;
 import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
 
-import plover.view.components.MemorySettingsForm;
+import plover.view.components.dialogues.MemorySettingsForm;
 
 import robotlegs.bender.extensions.viewManager.api.IViewManager;
 

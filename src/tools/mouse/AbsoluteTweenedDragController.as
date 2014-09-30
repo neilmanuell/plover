@@ -1,17 +1,17 @@
 package tools.mouse
 {
+import com.greensock.TweenLite;
+import com.greensock.easing.Sine;
+
 import flash.events.MouseEvent;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 
-public class RelativeDragController extends DragController
+public class AbsoluteTweenedDragController extends DragController
 {
-    private var _previousPoint:Number;
-    private var _previousMultiplier:Number;
-
-    public function RelativeDragController( dispatcher:DragControllerClient, view:ContextView )
+    public function AbsoluteTweenedDragController( client:DragControllerClient, view:ContextView )
     {
-        super( dispatcher, view );
+        super( client, view );
     }
 
     private function removeDownListeners():void
@@ -28,8 +28,6 @@ public class RelativeDragController extends DragController
 
     override protected function onMouseDown( event:MouseEvent ):void
     {
-        _previousPoint = _display.mouseX / (_display.width * 0.5);
-        _previousMultiplier = multiplier;
         _display.addEventListener( MouseEvent.MOUSE_UP, onMouseUp );
         _display.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
     }
@@ -41,10 +39,9 @@ public class RelativeDragController extends DragController
 
     override protected function onMouseMove( event:MouseEvent ):void
     {
-
-        const currentPoint:Number = _display.mouseX / (_display.width * 0.5);
-        multiplier = Math.max( 0, Math.min( 1, _previousMultiplier + (currentPoint - _previousPoint) ) );
-
+        trace( _display.mouseX );
+        const target:Number = Math.max( 0, Math.min( 1, _display.mouseX / _display.width ) );
+        TweenLite.to( this, 3, {multiplier: target, ease: Sine.easeOut } );
     }
 }
 }

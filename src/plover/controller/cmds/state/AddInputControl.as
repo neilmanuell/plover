@@ -1,17 +1,16 @@
 package plover.controller.cmds.state
 {
 import flash.events.IEventDispatcher;
-import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
 
 import plover.controller.cmds.ChangeDragControl;
 import plover.controller.cmds.ToggleDragControlMenuGroup;
-
 import plover.controller.cmds.changeStateTo;
+import plover.controller.cmds.changeViewStackTo;
 import plover.controller.constants.ActionNames;
+import plover.controller.constants.ScreenInfo;
 import plover.controller.events.ActionEvent;
 import plover.controller.guards.actionNameIs;
-import plover.controller.guards.keyIs;
+import plover.controller.guards.actionNameIsAny;
 import plover.controller.state.StateConstant;
 
 import statemachine.flow.api.EventFlowMap;
@@ -28,45 +27,30 @@ public class AddInputControl
     {
         flow
                 .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( changeStateTo( StateConstant.OPEN, dispatcher ) )
-                .butOnlyIf( actionNameIs( ActionNames.IMPORT_IMAGES ) );
 
+                .either.execute( changeStateTo( StateConstant.EDIT_SETTINGS, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.EDIT_SETTINGS ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( changeStateTo( StateConstant.QUIT, dispatcher ) )
-                .butOnlyIf( actionNameIs( ActionNames.EXIT_APP ) );
+                .or.execute( changeStateTo( StateConstant.OPEN, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.IMPORT_IMAGES ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( changeStateTo( StateConstant.SAVE, dispatcher ) )
-                .butOnlyIf( actionNameIs( ActionNames.SAVE ) );
+                .or.execute( changeStateTo( StateConstant.CLOSE, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.CLOSE ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( changeStateTo( StateConstant.CLOSE, dispatcher ) )
-                .butOnlyIf( actionNameIs( ActionNames.CLOSE ) );
+                .or.execute( changeStateTo( StateConstant.SAVE, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.SAVE ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( changeStateTo( StateConstant.EDIT_SETTINGS, dispatcher ) )
-                .butOnlyIf( actionNameIs( ActionNames.EDIT_SETTINGS ) );
+                .or.execute( changeStateTo( StateConstant.QUIT, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.EXIT_APP ) )
 
+                .or.execute( changeViewStackTo( ScreenInfo.DISPLAY, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.VIEW_SLIDES_SHOW ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( ChangeDragControl, ToggleDragControlMenuGroup )
-                .butOnlyIf( actionNameIs( ActionNames.ABSOLUTE_DRAG_CONTROL ) );
+                .or.execute( changeViewStackTo( ScreenInfo.EDIT, dispatcher ) )
+                .butOnlyIf( actionNameIs( ActionNames.VIEW_EDITOR ) )
 
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( ChangeDragControl, ToggleDragControlMenuGroup )
-                .butOnlyIf( actionNameIs( ActionNames.DELAYED_DRAG_CONTROL ) );
-
-        flow
-                .on( ActionEvent.EXECUTE, ActionEvent )
-                .always.execute( ChangeDragControl, ToggleDragControlMenuGroup )
-                .butOnlyIf( actionNameIs( ActionNames.RELATIVE_DRAG_CONTROL ) );
+                .or.execute( ChangeDragControl, ToggleDragControlMenuGroup )
+                .butOnlyIf( actionNameIsAny( ActionNames.DRAG_CONTROLLERS ) )
 
 
     }

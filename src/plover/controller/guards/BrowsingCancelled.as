@@ -2,14 +2,14 @@ package plover.controller.guards
 {
 import plover.service.file.BrowseFileService;
 
-public class BrowsingFailed
+public class BrowsingCancelled
 {
     [Inject]
     public var service:BrowseFileService;
 
     public function approve():Boolean
     {
-        return (!service.results.success && service.results.isError)
+        return service.results.wasCancelled;
     }
 }
 }

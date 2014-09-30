@@ -33,6 +33,8 @@ public class ApplicationMediator extends Mediator
         dispatch( new StateEvent( StateEvent.ACTION, StateConstant.NEXT ) )
     }
 
+
+
     override public function destroy():void
     {
         view.menu.removeEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );

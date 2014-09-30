@@ -1,4 +1,4 @@
-package plover.view.components
+package plover.view.components.editor
 {
 import mx.collections.IList;
 import mx.containers.Canvas;

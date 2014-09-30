@@ -56,6 +56,10 @@ public class StateConstant
     public static const CLOSING:String = "state/closing";
     public static const START_CLOSING:String = "state/setUp/closing";
 
+    public static const ERROR:String = "action/error";
+    public static const ERRORING:String = "state/erroring";
+    public static const START_ERRORING:String = "state/setUp/erroring";
+
     public static const FSM:XML = <fsm initial={BOOTSTRAPPING}>
 
         <!-- THE INITIAL STATE -->
@@ -88,6 +92,7 @@ public class StateConstant
             <transition action={IDLE} target={IDLING}/>
             <transition action={LOAD_LIST} target={LOADING_LIST}/>
             <transition action={LOAD_IMAGES} target={LOADING_IMAGES}/>
+            <transition action={ERROR} target={ERRORING}/>
         </state>
 
         <state name={SAVING_LIST}  changed={START_SAVING_LIST}>
@@ -99,7 +104,7 @@ public class StateConstant
             <transition action={EXPORT} target={EXPORTING}/>
         </state>
 
-        <state name={EXPORTING} entering={SETUP_EXPORTING} changed={START_EXPORTING}>
+        <state name={ERRORING} changed={START_ERRORING}>
             <transition action={IDLE} target={IDLING}/>
         </state>
 

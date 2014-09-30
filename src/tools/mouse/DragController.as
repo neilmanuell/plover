@@ -43,12 +43,12 @@ public class DragController
 
     private var _multiplier:Number = 0;
 
-    protected function get multiplier():Number
+    public function get multiplier():Number
     {
         return _multiplier;
     }
 
-    protected function set multiplier( value:Number ):void
+    public function set multiplier( value:Number ):void
     {
         if ( value == _multiplier )return;
         _multiplier = value;
