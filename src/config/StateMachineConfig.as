@@ -37,16 +37,6 @@ public class StateMachineConfig implements IConfig
 
     public function configure():void
     {
-        const fsmInjector:FSMInjector = new FSMInjector( StateConstant.FSM );
-        const stateMachine:StateMachine = new StateMachine( eventDispatcher );
-        const stateHistory:StateHistory = new StateHistory( eventDispatcher );
-
-        fsmInjector.inject( stateMachine );
-
-        context.injector.map( StateHistory ).toValue( stateHistory );
-        context.injector.map( StateMachine ).toValue( stateMachine );
-
-
         context.configure(
                 BootstrapingConfig,
                 OpeningConfig,
@@ -60,7 +50,18 @@ public class StateMachineConfig implements IConfig
                 SavingConfig,
                 ErroringConfig,
                 InvokingConfig
-        )
+        );
+
+        const fsmInjector:FSMInjector = new FSMInjector( StateConstant.FSM );
+        const stateMachine:StateMachine = new StateMachine( eventDispatcher );
+        const stateHistory:StateHistory = new StateHistory( eventDispatcher );
+
+        fsmInjector.inject( stateMachine );
+
+        context.injector.map( StateHistory ).toValue( stateHistory );
+        context.injector.map( StateMachine ).toValue( stateMachine );
+
+
     }
 }
 }

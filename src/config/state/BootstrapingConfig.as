@@ -1,6 +1,8 @@
 package config.state
 {
 import plover.controller.cmds.bootstrapping.CreateView;
+import plover.controller.cmds.bootstrapping.PopSplash;
+import plover.controller.cmds.bootstrapping.RemoveSplash;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -19,8 +21,12 @@ public class BootstrapingConfig implements IConfig
     public function configure():void
     {
         flow
-                .on( StateConstant.BOOTSTRAP, StateEvent )
-                .always.execute( CreateView );
+                .on( StateConstant.TEARDOWN_BOOTSTRAPING, StateEvent )
+                .always.execute( RemoveSplash, CreateView );
+
+        flow
+                .on( StateConstant.START_BOOTSTRAPPING, StateEvent )
+                .always.execute( PopSplash );
 
     }
 

@@ -3,11 +3,10 @@ package plover.view
 import flash.desktop.ClipboardFormats;
 import flash.desktop.NativeDragManager;
 import flash.events.NativeDragEvent;
+import flash.utils.setTimeout;
 
 import mx.events.FlexEvent;
-import mx.events.FlexNativeMenuEvent;
 
-import plover.controller.events.ActionEvent;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
@@ -30,7 +29,6 @@ public class ApplicationMediator extends Mediator
     }
 
 
-
     private function onDragDrop( event:NativeDragEvent ):void
     {
         const dropfiles:Array = event.clipboard.getData( ClipboardFormats.FILE_LIST_FORMAT ) as Array;
@@ -44,10 +42,13 @@ public class ApplicationMediator extends Mediator
     }
 
 
-
     private function onComplete( event:FlexEvent ):void
     {
-        dispatch( new StateEvent( StateEvent.ACTION, StateConstant.NEXT ) )
+        setTimeout( function ():void
+        {
+            dispatch( new StateEvent( StateEvent.ACTION, StateConstant.NEXT ) )
+        }, 2000 )
+
     }
 
 

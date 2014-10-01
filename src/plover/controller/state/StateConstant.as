@@ -12,8 +12,8 @@ public class StateConstant
     public static const SAVE:String = "action/save";
 
     public static const BOOTSTRAPPING:String = "state/bootstrapping";
-
-    public static const BOOTSTRAP:String = "event/bootstrap";
+    public static const START_BOOTSTRAPPING:String = "state/start/bootstrapping";
+    public static const TEARDOWN_BOOTSTRAPING:String = "event/tearDown/bootstrap";
 
     public static const IDLING:String = "event/idling";
     public static const SETUP_IDLING:String = "event/setupIdling";
@@ -67,7 +67,7 @@ public class StateConstant
     public static const FSM:XML = <fsm initial={BOOTSTRAPPING}>
 
         <!-- THE INITIAL STATE -->
-        <state name={BOOTSTRAPPING} exiting={BOOTSTRAP}>
+        <state name={BOOTSTRAPPING} entering={START_BOOTSTRAPPING} exiting={TEARDOWN_BOOTSTRAPING}>
             <transition action={NEXT} target={IDLING}/>
         </state>
 

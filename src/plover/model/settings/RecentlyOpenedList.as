@@ -43,6 +43,23 @@ public class RecentlyOpenedList
         persist();
     }
 
+    public function persist():void
+    {
+        _so.data.lastUpdated = new Date().getTime();
+        _so.data.menu = _menuitem.toXMLString();
+        _so.flush();
+    }
+
+    public function reset():void
+    {
+        _menuitem = new XML( _so.data.menu );
+    }
+
+    public function getFileAt( index:int ):File
+    {
+        return new File( _menuitem.menuitem[index].@url.toString() );
+    }
+
     private function reAssignKeyEquivs():void
     {
         const list:XMLList = _menuitem.menuitem;
@@ -62,23 +79,6 @@ public class RecentlyOpenedList
         {
             delete _menuitem.menuitem[len - 1];
         }
-    }
-
-    public function persist():void
-    {
-        _so.data.lastUpdated = new Date().getTime();
-        _so.data.menu = _menuitem.toXMLString();
-        _so.flush();
-    }
-
-    public function reset():void
-    {
-        _menuitem = new XML( _so.data.menu );
-    }
-
-    public function getFileAt( index:int ):File
-    {
-        return new File( _menuitem.elements( "menuitem" )[index].@url.toString() );
     }
 
     private function attachToMenu():void

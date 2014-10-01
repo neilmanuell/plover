@@ -17,6 +17,8 @@ import plover.view.components.editor.Editor;
 import plover.view.components.editor.EditorMediator;
 import plover.view.components.slide.Slide;
 import plover.view.components.slide.SlideMediator;
+import plover.view.components.splash.Splash;
+import plover.view.components.splash.SplashMediator;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
@@ -40,6 +42,7 @@ public class ViewConfig implements IConfig
         mediators.map( ViewStack ).toMediator( ViewStackMediator );
         mediators.map( ProgressDialogue ).toMediator( ProgressDialogueMediator );
         mediators.map( MemorySettingsForm ).toMediator( MemorySettingsFormMediator );
+        mediators.map( Splash ).toMediator( SplashMediator );
 
         const mainView:ContextView = injector.getInstance( ContextView );
         mediators.map( FlexNativeMenu ).toMediator( MenuMediator );

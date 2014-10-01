@@ -3,7 +3,8 @@
                        xmlns:rl2="http://ns.robotlegs.org/flex/rl2" xmlns:bundles="bundles.*" xmlns:config="config.*"
                        xmlns:mx="library://ns.adobe.com/flex/mx"
                        backgroundColor="#0"
-                       frameRate="60">
+                       frameRate="60"
+                       showStatusBar="false">
     <fx:Declarations>
         <rl2:ContextBuilder>
             <bundles:SimpleViewBundle/>
