@@ -41,6 +41,11 @@ public class BrowseImageFileService implements BrowseFileService
         return _complete;
     }
 
+    public function reset():void
+    {
+        _results = null;
+    }
+
     private function dispatch( success:Boolean, data:* ):void
     {
         _results = new BrowseResults( success, data );

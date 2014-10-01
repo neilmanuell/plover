@@ -9,5 +9,7 @@ public interface BrowseFileService
     function get browseComplete():Signal1
 
     function browse():Signal1
+
+    function reset():void;
 }
 }

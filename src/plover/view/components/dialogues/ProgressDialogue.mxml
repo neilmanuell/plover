@@ -5,7 +5,7 @@
 <dialogues:ProgressDialogueBase xmlns:fx="http://ns.adobe.com/mxml/2009"
                                 xmlns:dialogues="plover.view.components.dialogues.*" xmlns:layouts="spark.layouts.*"
                                 xmlns:s="spark.components.*"
-                                height="66"
+                                height="77"
                                 title="Importing Images">
     <dialogues:layout>
         <layouts:VerticalLayout/>

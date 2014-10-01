@@ -3,11 +3,13 @@ package config.state
 import flash.events.IEventDispatcher;
 
 import plover.controller.cmds.browsing.BrowseForOpenDialogue;
+import plover.controller.cmds.browsing.ResetBrowseForOpen;
 import plover.controller.cmds.onBrowseCompleteChangeStateTo;
 import plover.controller.cmds.sendErrorReport;
 import plover.controller.cmds.thenChangeStateTo;
 import plover.controller.guards.BrowsingCancelled;
 import plover.controller.guards.BrowsingFailed;
+import plover.controller.guards.BrowsingResultsNotNull;
 import plover.controller.guards.FolderDoesNotContainImages;
 import plover.controller.guards.ListFileDoesExist;
 import plover.controller.state.StateConstant;
@@ -39,22 +41,25 @@ public class BrowsingConfig implements IConfig
                 .always.execute( BrowseForOpenDialogue, onBrowseCompleteChangeStateTo( StateConstant.NEXT, injector ) );
 
         flow
+                .on( StateConstant.TEARDOWN_OPENING_REVIEW, StateEvent )
+                .always.execute( ResetBrowseForOpen );
+
+        flow
                 .on( StateConstant.START_OPENING_REVIEW, StateEvent )
                 .either
-                .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
-                .butOnlyIf( BrowsingCancelled )
+                    .execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) )
+                    .butOnlyIf( BrowsingResultsNotNull, BrowsingCancelled )
                 .or
-                .execute( thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
-                .butOnlyIf( BrowsingFailed )
+                    .execute( thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
+                    .butOnlyIf( BrowsingResultsNotNull, BrowsingFailed )
                 .or
-                .execute( sendErrorReport( new FolderHasNoImagesReport(), injector ), thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
-                .butOnlyIf( FolderDoesNotContainImages )
-
+                    .execute( sendErrorReport( new FolderHasNoImagesReport(), injector ), thenChangeStateTo( StateConstant.ERROR, dispatcher ) )
+                    .butOnlyIf( FolderDoesNotContainImages )
                 .or
-                .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
-                .butOnlyIf( ListFileDoesExist )
+                    .execute( thenChangeStateTo( StateConstant.LOAD_LIST, dispatcher ) )
+                    .butOnlyIf( ListFileDoesExist )
                 .or
-                .execute( thenChangeStateTo( StateConstant.LOAD_IMAGES, dispatcher ) );
+                    .execute( thenChangeStateTo( StateConstant.LOAD_IMAGES, dispatcher ) );
 
     }
 

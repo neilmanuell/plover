@@ -32,6 +32,7 @@ public class StateConstant
 
     public static const OPENING_REVIEW:String = "state/openingReview";
     public static const START_OPENING_REVIEW:String = "event/start/openingReview";
+    public static const TEARDOWN_OPENING_REVIEW:String = "event/tearDown/openingReview";
 
     public static const LOADING_LIST:String = "state/loadingList";
     public static const TEARDOWN_LOADING_LIST:String = "event/tearDown/loadingList";
@@ -49,16 +50,19 @@ public class StateConstant
 
     public static const EXPORT:String = "action/export";
     public static const EXPORTING:String = "state/exporting";
-    public static const SETUP_EXPORTING:String = "state/setUp/exporting";
     public static const START_EXPORTING:String = "event/start/exporting";
 
     public static const CLOSE:String = "action/close";
     public static const CLOSING:String = "state/closing";
-    public static const START_CLOSING:String = "state/setUp/closing";
+    public static const START_CLOSING:String = "state/start/closing";
+
+    public static const INVOKE:String = "action/invoke";
+    public static const INVOKING:String = "state/invoking";
+    public static const START_INVOKING:String = "state/start/invoking";
 
     public static const ERROR:String = "action/error";
     public static const ERRORING:String = "state/erroring";
-    public static const START_ERRORING:String = "state/setUp/erroring";
+    public static const START_ERRORING:String = "state/start/erroring";
 
     public static const FSM:XML = <fsm initial={BOOTSTRAPPING}>
 
@@ -69,6 +73,7 @@ public class StateConstant
 
         <state name={IDLING} entering={SETUP_IDLING} exiting={TEARDOWN_IDLING}>
             <transition action={OPEN} target={OPENING}/>
+            <transition action={INVOKE} target={INVOKING}/>
             <transition action={SAVE} target={SAVING_LIST}/>
             <transition action={EXPORT} target={EXPORTING}/>
             <transition action={QUIT} target={QUITTING}/>
@@ -88,7 +93,11 @@ public class StateConstant
             <transition action={NEXT} target={OPENING_REVIEW}/>
         </state>
 
-        <state name={OPENING_REVIEW} changed={START_OPENING_REVIEW}>
+        <state name={INVOKING} changed={START_INVOKING}>
+            <transition action={NEXT} target={OPENING_REVIEW}/>
+        </state>
+
+        <state name={OPENING_REVIEW} exiting={TEARDOWN_OPENING_REVIEW}  changed={START_OPENING_REVIEW}>
             <transition action={IDLE} target={IDLING}/>
             <transition action={LOAD_LIST} target={LOADING_LIST}/>
             <transition action={LOAD_IMAGES} target={LOADING_IMAGES}/>

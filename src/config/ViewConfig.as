@@ -3,8 +3,10 @@ package config
 import flash.display.NativeWindow;
 
 import mx.containers.ViewStack;
+import mx.controls.FlexNativeMenu;
 
 import plover.view.ApplicationMediator;
+import plover.view.MenuMediator;
 import plover.view.NativeWindowMediator;
 import plover.view.ViewStackMediator;
 import plover.view.components.dialogues.MemorySettingsForm;
@@ -40,10 +42,12 @@ public class ViewConfig implements IConfig
         mediators.map( MemorySettingsForm ).toMediator( MemorySettingsFormMediator );
 
         const mainView:ContextView = injector.getInstance( ContextView );
+        mediators.map( FlexNativeMenu ).toMediator( MenuMediator );
         mediators.map( NativeWindow ).toMediator( NativeWindowMediator );
         mediators.map( Main ).toMediator( ApplicationMediator );
         mediators.mediate( Main );
         mediators.mediate( (mainView.view as Main).nativeWindow );
+        mediators.mediate( (mainView.view as Main).menu );
     }
 }
 }

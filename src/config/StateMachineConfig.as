@@ -9,6 +9,7 @@ import config.state.ExitingConfig;
 import config.state.ExportingConfig;
 import config.state.IdlingConfig;
 import config.state.ImportingConfig;
+import config.state.InvokingConfig;
 import config.state.OpeningConfig;
 import config.state.SavingConfig;
 
@@ -57,7 +58,8 @@ public class StateMachineConfig implements IConfig
                 BrowsingConfig,
                 ExportingConfig,
                 SavingConfig,
-                ErroringConfig
+                ErroringConfig,
+                InvokingConfig
         )
     }
 }

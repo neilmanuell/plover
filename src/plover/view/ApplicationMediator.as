@@ -1,5 +1,9 @@
 package plover.view
 {
+import flash.desktop.ClipboardFormats;
+import flash.desktop.NativeDragManager;
+import flash.events.NativeDragEvent;
+
 import mx.events.FlexEvent;
 import mx.events.FlexNativeMenuEvent;
 
@@ -19,19 +23,27 @@ public class ApplicationMediator extends Mediator
 
     override public function initialize():void
     {
+        addViewListener( NativeDragEvent.NATIVE_DRAG_ENTER, onDragEnter );
+        addViewListener( NativeDragEvent.NATIVE_DRAG_DROP, onDragDrop );
         addViewListener( FlexEvent.APPLICATION_COMPLETE, onComplete );
-        view.menu.addEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );
+
     }
 
-    override public function destroy():void
+
+
+    private function onDragDrop( event:NativeDragEvent ):void
     {
-        view.menu.removeEventListener( FlexNativeMenuEvent.ITEM_CLICK, onMenuItemClick );
+        const dropfiles:Array = event.clipboard.getData( ClipboardFormats.FILE_LIST_FORMAT ) as Array;
+        if ( dropfiles == null )return;
+        dispatch( new StateEvent( StateEvent.ACTION, StateConstant.INVOKE, dropfiles[0] ) )
     }
 
-    private function onMenuItemClick( event:FlexNativeMenuEvent ):void
+    private function onDragEnter( event:NativeDragEvent ):void
     {
-        dispatch( new ActionEvent( event.item.@id, event.nativeMenu ) );
+        NativeDragManager.acceptDragDrop( view );
     }
+
+
 
     private function onComplete( event:FlexEvent ):void
     {

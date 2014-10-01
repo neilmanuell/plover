@@ -16,7 +16,7 @@ public class BrowseForOpenDialogue
     public var model:ImportFileModel;
 
     [Inject]
-    public var inject:IInjector;
+    public var injector:IInjector;
 
     public function execute():void
     {
@@ -24,7 +24,7 @@ public class BrowseForOpenDialogue
                 {
                     if ( result.isError )
                     {
-                        sendErrorReport( result.errorReport, inject );
+                        sendErrorReport( result.errorReport, injector );
                     }
 
                     else if ( result.success && !result.wasCancelled )

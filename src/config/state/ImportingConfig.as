@@ -53,8 +53,13 @@ public class ImportingConfig implements IConfig
 
         flow
                 .on( StateConstant.START_LOADING_IMAGES_REVIEW, StateEvent )
-                .either.execute( thenChangeStateTo( StateConstant.SAVE, dispatcher ) ).butOnlyIf( ListFileDoesNotExist )
-                .or.execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) );
+
+                .either
+                    .execute( thenChangeStateTo( StateConstant.SAVE, dispatcher ) )
+                    .butOnlyIf( ListFileDoesNotExist )
+
+                .or.
+                    execute( thenChangeStateTo( StateConstant.IDLE, dispatcher ) );
 
 
     }
