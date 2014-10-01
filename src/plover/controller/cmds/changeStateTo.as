@@ -5,11 +5,16 @@ import flash.events.IEventDispatcher;
 
 import tools.statemachine.StateEvent;
 
-public function changeStateTo( action:String, dispatcher:IEventDispatcher ):Function
+public function changeStateTo( action:String, dispatcher:IEventDispatcher, data:* = null ):Function
 {
     return function ( event:Event = null ):void
     {
-        dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action ) )
+        if ( data != null && typeof data == "function" )
+        {
+            data = data();
+        }
+
+        dispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, action, data ) )
     }
 }
 

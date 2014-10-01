@@ -9,6 +9,7 @@ public class ActionNames
     public static const SAVE:String = "saveBook";
     public static const VIEW_SLIDES_SHOW:String = "viewSlideShow";
     public static const VIEW_EDITOR:String = "viewEditor";
+    public static const RECENT_FOLDER:String = "recentFolder";
 
     private static const RELATIVE_DRAG_CONTROL:String = "relativeDrag";
     private static const RELATIVE_TWEENED_DRAG_CONTROL:String = "relativeTweenedDrag";

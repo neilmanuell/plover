@@ -4,6 +4,7 @@ import plover.model.errors.ErrorRegistry;
 import plover.model.files.ExportFileModel;
 import plover.model.files.ImportFileModel;
 import plover.model.settings.BitmapMemorySettings;
+import plover.model.settings.RecentlyOpenedList;
 import plover.model.slides.SlideCarriage;
 import plover.service.memory.BitmapMemoryModel;
 
@@ -27,7 +28,10 @@ public class ModelConfig implements IConfig
         injector.map( BitmapMemorySettings ).asSingleton();
         injector.map( BitmapMemoryModel ).asSingleton();
         injector.map( ErrorRegistry ).asSingleton();
+        injector.map( RecentlyOpenedList ).asSingleton();
         injector.map( DragControllerClient ).toValue( injector.getInstance( SlideCarriage ) );
+
+        injector.getInstance(RecentlyOpenedList);
     }
 }
 }

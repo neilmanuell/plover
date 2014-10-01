@@ -2,7 +2,7 @@ package config.state
 {
 import plover.controller.cmds.onLoadQueueCompleteChangeStateTo;
 import plover.controller.cmds.opening.AcquireList;
-import plover.controller.cmds.state.RemoveAllLoaderServiceListeners;
+import plover.controller.cmds.importing.FlushLoaderService;
 import plover.controller.state.StateConstant;
 
 import robotlegs.bender.framework.api.IConfig;
@@ -27,7 +27,7 @@ public class OpeningConfig implements IConfig
 
         flow
                 .on( StateConstant.TEARDOWN_LOADING_LIST, StateEvent )
-                .always.execute( RemoveAllLoaderServiceListeners );
+                .always.execute( FlushLoaderService );
 
         flow
                 .on( StateConstant.START_LOADING_LIST, StateEvent )

@@ -1,13 +1,9 @@
-package plover.controller.cmds.state
+package plover.controller.cmds.importing
 {
-import statemachine.flow.api.EventFlowMap;
-
 import tools.loaderservice.api.LoaderService;
 
-public class RemoveAllLoaderServiceListeners
+public class FlushLoaderService
 {
-    [Inject]
-    public var flow:EventFlowMap;
 
     [Inject]
     public var service:LoaderService;
@@ -15,6 +11,7 @@ public class RemoveAllLoaderServiceListeners
     public function execute():void
     {
         service.on.removeAll();
+        service.flush();
     }
 }
 }

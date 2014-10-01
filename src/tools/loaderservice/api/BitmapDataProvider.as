@@ -4,6 +4,6 @@ import flash.display.BitmapData;
 
 public interface BitmapDataProvider
 {
-    function getBitmapData( name:String, unload:Boolean = false ):BitmapData
+    function getBitmapData( name:String ):BitmapData
 }
 }

@@ -15,5 +15,7 @@ public interface LoaderService
     function pause():void
 
     function resume():void
+
+    function flush():void
 }
 }

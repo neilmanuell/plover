@@ -7,10 +7,12 @@ import flash.events.Event;
 public class ActionEvent extends Event
 {
     public static const EXECUTE:String = "ActionEvent.EXECUTE";
+    private var _index:int;
 
-    public function ActionEvent( name:String, nativeMenu:NativeMenu )
+    public function ActionEvent( index:int, name:String, nativeMenu:NativeMenu )
     {
         super( EXECUTE );
+        _index = index;
         _name = name;
         _nativeMenu = nativeMenu;
     }
@@ -25,7 +27,7 @@ public class ActionEvent extends Event
 
     override public function clone():Event
     {
-        return new ActionEvent( _name, _nativeMenu );
+        return new ActionEvent( _index, _name, _nativeMenu );
     }
 
     public function deselectMenuItem( id:String ):void
@@ -39,6 +41,11 @@ public class ActionEvent extends Event
                 item.data.@toggled = false;
             }
         } );
+    }
+
+    public function get index():int
+    {
+        return _index;
     }
 }
 }

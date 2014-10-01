@@ -114,6 +114,12 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
         _loader.load();
     }
 
+    public function flush():void
+    {
+        _loader.dispose(true);
+        _loader = null;
+    }
+
     public function pause():void
     {
         _loader.pause();
@@ -124,7 +130,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
         _loader.resume();
     }
 
-    public function getBitmapData( name:String, unload:Boolean = false ):BitmapData
+    public function getBitmapData( name:String ):BitmapData
     {
         const loader:ImageLoader = LoaderMax.getLoader( name ) as ImageLoader;
         if ( loader == null || loader.content == null || loader.content.rawContent == null )
@@ -133,9 +139,7 @@ public class LoaderMaxService implements LoaderService, BitmapDataProvider, XMLP
             return NULL_BITMAP_DATA.clone();
         }
 
-        if ( unload )loader.unload();
-
-        return  loader.content.rawContent.bitmapData.clone();
+        return loader.content.rawContent.bitmapData.clone();
     }
 
     public function getXML( name:String ):XML

@@ -12,7 +12,7 @@ public const MENU_DATA:XML =
                 <menuitem id="exitApp" label="quit"
                 keyEquivalent="q" controlKey="true"/>
                 <menuitem type="separator"/>
-                <menuitem id="recentFolders" label="recent folders"/>
+
             </menuitem>
             <menuitem label="View">
                 <menuitem id="viewSlideShow" label="view slide show"

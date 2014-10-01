@@ -21,7 +21,7 @@ public class MenuMediator extends Mediator
 
     private function onMenuItemClick( event:FlexNativeMenuEvent ):void
     {
-        dispatch( new ActionEvent( event.item.@id, event.nativeMenu ) );
+        dispatch( new ActionEvent( event.index, event.item.@id, event.nativeMenu ) );
     }
 
 
